@@ -18,27 +18,58 @@
         .profile-pic {
             width: 120px; height: 120px;
             border-radius: 50%; margin-bottom: 20px;
-            object-fit: cover; border: 3px solid var(--tg-theme-button-color, #2481cc);
+            object-fit: cover; border: 3px solid #2481cc;
+            box-shadow: 0 4px 15px rgba(36, 129, 204, 0.3);
         }
-        h1 { font-size: 24px; margin: 0 0 10px 0; }
+        h1 { font-size: 26px; margin: 0 0 10px 0; font-weight: 800; }
         p { font-size: 16px; margin: 0 auto 30px auto; max-width: 280px; line-height: 1.4; opacity: 0.9; }
+        
         .btn-container {
             width: 100%; max-width: 320px;
-            display: flex; flex-direction: column; gap: 12px;
+            display: flex; flex-direction: column; gap: 16px;
         }
+        
         .btn {
             display: flex; align-items: center; justify-content: center;
             width: 100%; box-sizing: border-box;
-            padding: 16px; border-radius: 14px;
-            font-size: 17px; font-weight: 600; text-decoration: none;
+            padding: 18px; border-radius: 16px;
+            font-size: 18px; font-weight: 700; text-decoration: none;
+            transition: all 0.2s ease; /* Плавность анимации */
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Главная кнопка с градиентом */
         .btn-main {
-            background-color: var(--tg-theme-button-color, #2481cc);
-            color: var(--tg-theme-button-text-color, #ffffff);
+            background: linear-gradient(135deg, #2481cc 0%, #0056b3 100%);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 6px 20px rgba(36, 129, 204, 0.4);
         }
+
+        /* Контурная кнопка со свечением */
         .btn-outline {
-            border: 2px solid var(--tg-theme-button-color, #2481cc);
-            color: var(--tg-theme-button-color, #2481cc);
+            background-color: transparent;
+            border: 2px solid #2481cc;
+            color: #2481cc;
+            box-shadow: 0 4px 10px rgba(36, 129, 204, 0.1);
+        }
+
+        /* Эффект при нажатии */
+        .btn:active {
+            transform: scale(0.95); /* Кнопка «вжимается» */
+            filter: brightness(1.2); /* Становится ярче */
+        }
+
+        /* Дополнительный блеск */
+        .btn-main::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            pointer-events: none;
         }
     </style>
 </head>
@@ -46,7 +77,7 @@
     <img src="https://i.ibb.co/XfSSb3YH/IMG-5353.jpg" alt="Logo" class="profile-pic">
 
     <h1>DaLi STORE 👋</h1>
-    <p>Окружите себя вещами, которые имеют значение 📦 От лимитированных коллекций одежды до уютных деталей дома. Ваш стиль начинается здесь 🕊️</p>
+    <p>Окружите себя вещами, которые имеют значение 📦 От лимитированных коллекций до уютных деталей дома. Ваш стиль начинается здесь 🕊️</p>
 
     <div class="btn-container">
         <a href="https://t.me/DaLi_STORE_TG" class="btn btn-main">Перейти в канал</a>
@@ -56,6 +87,7 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        tg.MainButton.hide(); 
     </script>
 </body>
 </html>
