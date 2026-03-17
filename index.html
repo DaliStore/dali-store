@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    
+    <title>DaLi STORE — NEW LOOK</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <style>
+        @keyframes pulseBg {
+            0% { transform: translate(0,0) scale(1); }
+            100% { transform: translate(20px, 20px) scale(1.1); }
+        }
+
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: #ffffff !important;
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            min-height: 100vh; text-align: center;
+            overflow: hidden; position: relative;
+        }
+
+        /* Новые пятна фона с другими именами */
+        .bg-magic-spot {
+            position: absolute; border-radius: 50%;
+            filter: blur(60px); -webkit-filter: blur(60px);
+            z-index: -1; opacity: 0.5;
+            animation: pulseBg 8s infinite alternate ease-in-out;
+        }
+
+        .avatar-box {
+            width: 145px; height: 145px; border-radius: 50%;
+            margin-bottom: 25px; border: 3px solid #2481cc;
+            box-shadow: 0 15px 35px rgba(36, 129, 204, 0.2);
+            overflow: hidden; background: #000;
+        }
+
+        .img-fix {
+            width: 100%; height: 100%; object-fit: cover;
+            transform: scale(1.75);
+        }
+
+        h1 { font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 10px; }
+        p { font-size: 16px; color: #475569; max-width: 280px; margin-bottom: 40px; }
+
+        .stack { width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 18px; }
+
+        /* Та самая кнопка-стекло */
+        .ultra-glass-element {
+            display: flex; align-items: center; justify-content: center;
+            padding: 21px; border-radius: 22px;
+            font-size: 18px; font-weight: 800; text-decoration: none;
+            /* ГЛАССМОРФИЗМ */
+            background: rgba(255, 255, 255, 0.4) !important;
+            border: 1.5px solid rgba(36, 129, 204, 0.3) !important;
+            color: #1d4ed8 !important;
+            backdrop-filter: blur(25px) !important;
+            -webkit-backdrop-filter: blur(25px) !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        .blue-power-btn {
+            display: flex; align-items: center; justify-content: center;
+            padding: 21px; border-radius: 22px;
+            font-size: 18px; font-weight: 800; text-decoration: none;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff; border: none;
+            box-shadow: 0 10px 25px rgba(37,99,235,0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-magic-spot" style="width:300px; height:300px; background:rgba(36,129,204,0.15); top:-100px; right:-50px;"></div>
+    <div class="bg-magic-spot" style="width:250px; height:250px; background:rgba(36,129,204,0.1); bottom:-50px; left:-50px; animation-delay:-4s;"></div>
+
+    <div class="avatar-box">
+        <img src="https://i.ibb.co/XfSSb3YH/IMG-5353.jpg" class="img-fix">
+    </div>
+
+    <h1>DaLi STORE 👋</h1>
+    <p>Вещи, которые создают твой вайб 📦 Твой стиль — твои правила. Начни путь с DaLi STORE 🕊️</p>
+
+    <div class="stack">
+        <a href="https://t.me/DaLi_STORE_TG" class="blue-power-btn">Вступить в комьюнити</a>
+        <a href="https://t.me/SWiWT_Teams" class="ultra-glass-element">Связаться / Заказать</a>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.backgroundColor = '#ffffff';
+    </script>
+</body>
+</html>
