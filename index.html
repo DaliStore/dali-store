@@ -14,13 +14,32 @@
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             min-height: 100vh; text-align: center;
+            overflow: hidden;
         }
+
+        /* Контейнер для фото с обрезкой лишнего */
+        .avatar-container {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            margin-bottom: 25px;
+            border: 3px solid #2481cc;
+            box-shadow: 0 4px 20px rgba(36, 129, 204, 0.4);
+            overflow: hidden; /* Скрывает края картинки */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+        }
+
         .profile-pic {
-            width: 120px; height: 120px;
-            border-radius: 50%; margin-bottom: 20px;
-            object-fit: cover; border: 3px solid #2481cc;
-            box-shadow: 0 4px 15px rgba(36, 129, 204, 0.3);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* ЗУМ: Увеличиваем логотип, чтобы убрать пустоту */
+            transform: scale(1.7); 
         }
+
         h1 { font-size: 26px; margin: 0 0 10px 0; font-weight: 800; }
         p { font-size: 16px; margin: 0 auto 30px auto; max-width: 280px; line-height: 1.4; opacity: 0.9; }
         
@@ -34,12 +53,11 @@
             width: 100%; box-sizing: border-box;
             padding: 18px; border-radius: 16px;
             font-size: 18px; font-weight: 700; text-decoration: none;
-            transition: all 0.2s ease; /* Плавность анимации */
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
         }
 
-        /* Главная кнопка с градиентом */
+        /* Сочная главная кнопка */
         .btn-main {
             background: linear-gradient(135deg, #2481cc 0%, #0056b3 100%);
             color: #ffffff;
@@ -47,37 +65,29 @@
             box-shadow: 0 6px 20px rgba(36, 129, 204, 0.4);
         }
 
-        /* Контурная кнопка со свечением */
+        /* Стильная контурная кнопка */
         .btn-outline {
             background-color: transparent;
             border: 2px solid #2481cc;
             color: #2481cc;
-            box-shadow: 0 4px 10px rgba(36, 129, 204, 0.1);
         }
 
-        /* Эффект при нажатии */
+        /* Эффект мощного нажатия */
         .btn:active {
-            transform: scale(0.95); /* Кнопка «вжимается» */
-            filter: brightness(1.2); /* Становится ярче */
+            transform: scale(0.94);
+            filter: brightness(1.2);
         }
 
-        /* Дополнительный блеск */
-        .btn-main::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
-    <img src="https://i.ibb.co/XfSSb3YH/IMG-5353.jpg" alt="Logo" class="profile-pic">
+
+    <div class="avatar-container">
+        <img src="https://i.ibb.co/XfSSb3YH/IMG-5353.jpg" alt="Logo" class="profile-pic">
+    </div>
 
     <h1>DaLi STORE 👋</h1>
-    <p>Окружите себя вещами, которые имеют значение 📦 От лимитированных коллекций до уютных деталей дома. Ваш стиль начинается здесь 🕊️</p>
+    <p>Окружите себя вещами, которые имеют значение 📦 От лимитированных коллекций одежды до уютных деталей дома. Ваш стиль начинается здесь 🕊️</p>
 
     <div class="btn-container">
         <a href="https://t.me/DaLi_STORE_TG" class="btn btn-main">Перейти в канал</a>
@@ -87,6 +97,7 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        // Убираем стандартную синюю кнопку снизу, если она есть
         tg.MainButton.hide(); 
     </script>
 </body>
