@@ -3,43 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>DaLi STORE</title>
+    <title>DaLi STORE v3.0</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        /* Анимированные живые сферы на фоне */
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(40px, 20px) rotate(5deg); }
+            100% { transform: translate(-20px, 40px) rotate(-5deg); }
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #ffffff;
+            background-color: #ffffff;
             color: #1e293b;
             margin: 0; padding: 20px;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             min-height: 100vh; text-align: center;
-            position: relative;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Те самые живые пятна на фоне, которые украшают */
-        .bg-sphere {
+        /* Декоративные элементы фона */
+        .decor-sphere {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(70px);
             z-index: -1;
-            animation: move 20s infinite alternate;
+            opacity: 0.6;
+            animation: float 12s infinite alternate ease-in-out;
         }
-        .sphere-1 { width: 300px; height: 300px; background: rgba(36, 129, 204, 0.15); top: -100px; right: -50px; }
-        .sphere-2 { width: 250px; height: 250px; background: rgba(36, 129, 204, 0.1); bottom: -50px; left: -50px; }
-
-        @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 50px); }
-        }
+        .sphere-blue { width: 350px; height: 350px; background: #e0f2fe; top: -120px; right: -60px; }
+        .sphere-light { width: 280px; height: 280px; background: #f0f9ff; bottom: -60px; left: -80px; animation-delay: -4s; }
 
         .avatar-container {
             width: 145px; height: 145px;
             border-radius: 50%;
             margin-bottom: 25px;
             border: 3px solid #2481cc;
-            box-shadow: 0 12px 30px rgba(36, 129, 204, 0.2);
+            box-shadow: 0 15px 35px rgba(36, 129, 204, 0.25);
             overflow: hidden;
             display: flex; align-items: center; justify-content: center;
             background-color: #000;
@@ -48,11 +51,11 @@
         .profile-pic {
             width: 100%; height: 100%;
             object-fit: cover;
-            transform: scale(1.7);
+            transform: scale(1.75); /* Зум логотипа */
             image-rendering: -webkit-optimize-contrast;
         }
 
-        h1 { font-size: 30px; margin: 0 0 12px 0; font-weight: 900; color: #0f172a; }
+        h1 { font-size: 32px; margin: 0 0 10px 0; font-weight: 900; color: #0f172a; letter-spacing: -1px; }
         p { font-size: 16px; margin: 0 auto 40px auto; max-width: 300px; line-height: 1.6; color: #475569; }
         
         .btn-container {
@@ -63,58 +66,55 @@
         .btn {
             display: flex; align-items: center; justify-content: center;
             width: 100%; box-sizing: border-box;
-            padding: 20px; border-radius: 22px;
+            padding: 22px; border-radius: 24px;
             font-size: 18px; font-weight: 800; text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Яркий основной призыв */
+        /* Основная кнопка с градиентом */
         .btn-main {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: #ffffff;
             box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
             border: none;
         }
 
-        /* Тот самый ЭФФЕКТ СТЕКЛА */
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(36, 129, 204, 0.3);
+        /* Вторая кнопка — ЭФФЕКТ СТЕКЛА */
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1.5px solid rgba(37, 99, 235, 0.3);
             color: #1d4ed8;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            /* Размытие для эффекта стекла */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
         }
 
-        .btn:active {
-            transform: scale(0.95);
-        }
+        .btn:active { transform: scale(0.94); }
+
     </style>
 </head>
 <body>
-    <div class="bg-sphere sphere-1"></div>
-    <div class="bg-sphere sphere-2"></div>
+    <div class="decor-sphere sphere-blue"></div>
+    <div class="decor-sphere sphere-light"></div>
 
     <div class="avatar-container">
         <img src="https://i.ibb.co/XfSSb3YH/IMG-5353.jpg" alt="Logo" class="profile-pic">
     </div>
 
     <h1>DaLi STORE 👋</h1>
-    <p>Вещи, которые создают твой вайб 📦 От эксклюзивного дропа до уютных деталей дома. Твой стиль начинается здесь 🕊️</p>
+    <p>Вещи, которые создают твой вайб 📦 От эксклюзивного дропа до предметов интерьера. Твой стиль — твои правила 🕊️</p>
 
     <div class="btn-container">
         <a href="https://t.me/DaLi_STORE_TG" class="btn btn-main">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="btn btn-outline">Связаться / Заказать</a>
+        <a href="https://t.me/SWiWT_Teams" class="btn btn-glass">Связаться / Заказать</a>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
         tg.MainButton.hide();
+        tg.backgroundColor = '#ffffff';
     </script>
 </body>
 </html>
-
-
-
-
