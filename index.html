@@ -20,13 +20,16 @@
             border-radius: 50%; margin-bottom: 20px;
             object-fit: cover; border: 3px solid var(--tg-theme-button-color, #2481cc);
         }
+        h1 { font-size: 24px; margin: 0 0 10px 0; }
+        p { font-size: 16px; margin: 0 auto 30px auto; max-width: 280px; line-height: 1.4; opacity: 0.9; }
         .btn-container {
             width: 100%; max-width: 320px;
             display: flex; flex-direction: column; gap: 12px;
         }
         .btn {
             display: flex; align-items: center; justify-content: center;
-            width: 100%; padding: 16px; border-radius: 14px;
+            width: 100%; box-sizing: border-box;
+            padding: 16px; border-radius: 14px;
             font-size: 17px; font-weight: 600; text-decoration: none;
         }
         .btn-main {
@@ -41,12 +44,15 @@
 </head>
 <body>
     <img src="https://i.ibb.co/XfSSb3YH/IMG-5353.jpg" alt="Logo" class="profile-pic">
+
     <h1>DaLi STORE 👋</h1>
-    <p>Окружите себя вещами, которые имеют значение 📦</p>
+    <p>Окружите себя вещами, которые имеют значение 📦 От лимитированных коллекций одежды до уютных деталей дома. Ваш стиль начинается здесь 🕊️</p>
+
     <div class="btn-container">
         <a href="https://t.me/DaLi_STORE_TG" class="btn btn-main">Перейти в канал</a>
         <a href="https://t.me/SWiWT_Teams" class="btn btn-outline">Заказать / Чат</a>
     </div>
+
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
