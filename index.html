@@ -6,40 +6,26 @@
     <title>DaLi STORE</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root {
-            --primary-color: #2481cc;
-            --bg-gradient: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg-gradient);
-            color: #ffffff;
+            /* Мягкий переливающийся фон */
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            color: #1e293b;
             margin: 0; padding: 20px;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             min-height: 100vh; text-align: center;
         }
 
-        /* Анимированное свечение аватарки */
         .avatar-container {
-            width: 150px; height: 150px;
+            width: 140px; height: 140px;
             border-radius: 50%;
             margin-bottom: 25px;
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
-            background: #000;
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 30px rgba(36, 129, 204, 0.5);
-            animation: pulse 2s infinite;
+            border: 3px solid #2481cc;
+            box-shadow: 0 10px 25px rgba(36, 129, 204, 0.2);
             overflow: hidden;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(36, 129, 204, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(36, 129, 204, 0.7); }
-            100% { box-shadow: 0 0 20px rgba(36, 129, 204, 0.4); }
+            display: flex; align-items: center; justify-content: center;
+            background-color: #000;
         }
 
         .profile-pic {
@@ -49,41 +35,49 @@
             image-rendering: -webkit-optimize-contrast;
         }
 
-        h1 { font-size: 28px; margin: 0 0 12px 0; font-weight: 800; letter-spacing: -0.5px; }
-        p { font-size: 16px; margin: 0 auto 35px auto; max-width: 300px; line-height: 1.5; color: #94a3b8; }
+        h1 { font-size: 28px; margin: 0 0 12px 0; font-weight: 800; color: #0f172a; }
+        p { font-size: 16px; margin: 0 auto 35px auto; max-width: 300px; line-height: 1.6; color: #64748b; }
         
         .btn-container {
             width: 100%; max-width: 340px;
-            display: flex; flex-direction: column; gap: 18px;
+            display: flex; flex-direction: column; gap: 16px;
         }
         
         .btn {
             display: flex; align-items: center; justify-content: center;
             width: 100%; box-sizing: border-box;
-            padding: 20px; border-radius: 20px;
-            font-size: 18px; font-weight: 700; text-decoration: none;
+            padding: 19px; border-radius: 18px;
+            font-size: 17px; font-weight: 700; text-decoration: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
         }
 
-        /* Главная кнопка - Неоновый стиль */
+        /* Яркая и сочная главная кнопка */
         .btn-main {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, #2481cc 0%, #1d4ed8 100%);
             color: #ffffff;
-            box-shadow: 0 10px 25px rgba(36, 129, 204, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(36, 129, 204, 0.3);
         }
 
-        /* Кнопка Чат - Стеклянный стиль */
+        /* Стильная контурная кнопка */
         .btn-outline {
-            background: var(--glass-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ffffff;
+            background-color: #ffffff;
+            border: 2px solid #2481cc;
+            color: #2481cc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
-        .btn:active { transform: scale(0.96); }
+        .btn:active {
+            transform: scale(0.96);
+            filter: brightness(1.1);
+        }
 
+        /* Легкий декоративный элемент на фоне */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(36, 129, 204, 0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
@@ -93,7 +87,7 @@
     </div>
 
     <h1>DaLi STORE 👋</h1>
-    <p>Вещи, которые создают твой вайб 📦 От эксклюзивного дропа до предметов интерьера. Твой стиль — твои правила 🕊️</p>
+    <p>Вещи, которые создают твой вайб 📦 От эксклюзивного дропа до уютных деталей дома. Твой стиль начинается здесь 🕊️</p>
 
     <div class="btn-container">
         <a href="https://t.me/DaLi_STORE_TG" class="btn btn-main">Вступить в комьюнити</a>
@@ -103,9 +97,9 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-        tg.backgroundColor = '#020617';
-        tg.headerColor = '#0f172a';
+        tg.MainButton.hide();
     </script>
 </body>
 </html>
+
 
