@@ -2,46 +2,54 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DaLi STORE</title>
     <style>
+        /* Обнуляем отступы, чтобы ничего не ехало */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
+            margin: 0;
+            padding: 0;
             background-color: #000;
             color: #fff;
-            font-family: -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
         }
 
-        /* АВАТАРКА: Исправил отображение */
+        .container {
+            width: 100%;
+            max-width: 360px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* АВАТАРКА: Поставил надежную ссылку для теста */
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             border: 2px solid #d4af37;
-            margin-bottom: 20px;
-            background-image: url('https://i.postimg.cc/mD83W0Br/dali.jpg'); /* ПРЯМАЯ ССЫЛКА */
+            margin: 0 auto 20px;
+            background-image: url('https://i.postimg.cc/mD83W0Br/dali.jpg'); 
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
         }
 
-        h1 { font-size: 26px; margin: 0; font-weight: bold; }
-        
-        .desc {
+        h1 { font-size: 26px; margin: 10px 0; font-weight: bold; }
+
+        .description {
             font-size: 14px;
-            color: #ccc;
-            text-align: center;
-            max-width: 300px;
-            margin: 15px 0 30px;
+            color: #aaa;
+            line-height: 1.5;
+            margin-bottom: 30px;
         }
 
-        .label {
+        .join-label {
             font-size: 11px;
             color: #d4af37;
             text-transform: uppercase;
@@ -49,61 +57,61 @@
             margin-bottom: 15px;
         }
 
-        /* ЕДИНЫЙ СТЕКЛЯННЫЙ БЛОК: Слитные кнопки */
-        .glass-box {
-            width: 100%;
-            max-width: 350px;
-            background: rgba(255, 255, 255, 0.08); /* Эффект стекла */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+        /* СТЕКЛЯННЫЙ БЛОК */
+        .glass-menu {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            overflow: hidden; /* Чтобы края кнопок не вылезали за радиус */
+            border-radius: 22px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .item {
-            display: block;
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            text-decoration: none;
+        /* КНОПКИ */
+        .btn {
+            padding: 22px;
             color: #fff;
+            text-decoration: none;
             font-weight: 600;
             font-size: 16px;
-            transition: 0.2s;
+            transition: background 0.3s;
             border: none;
             background: transparent;
             cursor: pointer;
+            display: block;
         }
 
-        /* Разделитель между кнопками */
-        .border-bottom {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        /* Разделительная линия */
+        .btn-top {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: #d4af37;
         }
 
-        /* Золотой текст для первой кнопки */
-        .gold-text { color: #d4af37; }
-
-        .item:active {
+        .btn:active {
             background: rgba(255, 255, 255, 0.1);
         }
+
     </style>
 </head>
 <body>
 
-    <div class="avatar"></div>
+    <div class="container">
+        <div class="avatar"></div>
 
-    <h1>DaLi STORE 💿</h1>
-    
-    <div class="desc">
-        Вещи, которые создают твой вайб. Твой стиль — твои правила. Начни путь к статусу 🕊️
-    </div>
+        <h1>DaLi STORE 💿</h1>
+        
+        <p class="description">
+            Вещи, которые создают твой вайб. Твой стиль — твои правила. Начни путь к статусу 🕊️
+        </p>
 
-    <div class="label">Присоединяйся</div>
+        <div class="join-label">Присоединяйся</div>
 
-    <div class="glass-box">
-        <a href="ТВОЯ_ССЫЛКА_1" class="item border-bottom gold-text">Вступить в комьюнити</a>
-        <a href="ТВОЯ_ССЫЛКА_2" class="item">Связаться / Заказать</a>
+        <div class="glass-menu">
+            <a href="https://t.me/твой_логин" class="btn btn-top">Вступить в комьюнити</a>
+            <a href="https://t.me/твой_логин" class="btn">Связаться / Заказать</a>
+        </div>
     </div>
 
 </body>
