@@ -4,186 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DaLi STORE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
     <style>
-        /* Обнуление */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
+            background: #000;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; color: #fff; overflow: hidden;
             font-family: 'Montserrat', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #fff;
-            
-            /* ЖИВОЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН */
-            background: linear-gradient(135deg, #1a1a1a, #0d0d0d, #262626, #0a0a0a);
-            background-size: 400% 400%;
-            animation: gradient-bg 20s ease infinite;
-            overflow-x: hidden;
         }
 
-        /* Анимация фона */
-        @keyframes gradient-bg {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Дышащий фон */
+        #bg-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; filter: blur(30px); opacity: 0.6;
         }
 
-        /* КОНТЕЙНЕР (ОТДАЛЕННЫЙ) */
         .container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            text-align: center;
-            z-index: 10;
-            transform: scale(0.9); /* Отдаление контента */
+            width: 100%; max-width: 400px; text-align: center;
+            z-index: 10; transform: scale(0.85); /* Отдаление */
         }
 
-        /* АВАТАРКА */
         .avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 2px solid #d4af37;
-            margin: 0 auto 25px;
-            background-image: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg'); 
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 0 45px rgba(212, 175, 55, 0.4);
+            width: 130px; height: 130px; border-radius: 50%;
+            border: 2px solid #d4af37; margin: 0 auto 20px;
+            background: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg') center/cover;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
 
-        /* ЗОЛОТИСТЫЙ ЗАГОЛОВОК */
         h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 38px; 
-            margin: 10px 0; 
-            font-weight: 800; 
-            letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            font-family: 'Playfair Display', serif; font-size: 32px;
+            background: linear-gradient(135deg, #d4af37, #ffdf85);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin: 10px 0;
         }
 
-        .description { 
-            font-size: 14px; 
-            font-weight: 300;
-            color: #ccc; 
-            margin-bottom: 45px; 
-            line-height: 1.6;
-            padding: 0 15px;
-            opacity: 0.8;
+        .button-wrapper {
+            position: relative; margin-bottom: 25px;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .label { 
-            font-size: 11px; 
-            color: #ffdf85; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            margin-bottom: 25px; 
-            font-weight: 600;
-        }
-
-        /* КНОПКА: ОБЪЕМНАЯ ГЛЯНЦЕВАЯ ЛИНЗА */
         .lens-button {
-            display: block;
-            width: 100%;
-            margin-bottom: 25px; 
-            padding: 24px 20px;
-            text-decoration: none;
-            color: #fff; 
-            font-weight: 600;
-            font-size: 17px;
-            border-radius: 50px; /* Скругленные, как капля */
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            
-            /* Стеклянная база */
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Тончайшая обводка */
-
-            /* МНОЖЕСТВЕННЫЕ ТЕНИ ДЛЯ ОБЪЕМА И ВОЛН ВНУТРИ */
-            box-shadow: 
-                0 15px 30px rgba(0, 0, 0, 0.7), /* Основная тень */
-                0 0 15px rgba(255, 255, 255, 0.15), /* Мягкое внешнее сияние */
-                inset 0 12px 18px rgba(255, 255, 255, 0.2), /* Жесткий блик сверху для объема */
-                inset 0 -6px 15px rgba(255, 255, 255, 0.05); /* Мягкий отсвет снизу внутри */
-            
-            overflow: hidden;
-            z-index: 1;
+            width: 100%; padding: 22px;
+            text-decoration: none; color: #fff; font-weight: 600;
+            border-radius: 50px; background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 10px 20px rgba(255,255,255,0.1), 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 5; position: relative;
         }
 
-        /* ИСКОРКА-ОБВОДКА (ЧИСТЫЙ CSS) */
-        .lens-button::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px; /* Чуть шире кнопки */
-            border-radius: 52px; /* Точно повторяем контур */
-            
-            /* Светящийся бег по кругу */
-            background: conic-gradient(from 0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 15%, transparent 100%);
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-clip: content-box, border-box;
-            mask-clip: content-box, border-box;
-            -webkit-mask-composite: source-out;
-            mask-composite: exclude;
-            
-            border: 3px solid transparent; /* Тонкий след */
+        /* Контур для искорки */
+        .sparkle-svg {
+            position: absolute; top: -2px; left: -2px;
+            width: calc(100% + 4px); height: calc(100% + 4px);
+            fill: none; pointer-events: none; z-index: 6;
+        }
+
+        .sparkle-path {
+            stroke: #fff; stroke-width: 3; stroke-linecap: round;
+            stroke-dasharray: 40, 1000; /* Длина искорки */
+            stroke-dashoffset: 1000;
+            filter: drop-shadow(0 0 5px #fff);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Класс активации для JS */
+        .active-sparkle .sparkle-path {
             opacity: 1;
-            z-index: -1; /* Позади текста */
-            
-            /* Анимация искорки */
-            animation: sparkle-spin 6s linear infinite; 
+            animation: run-sparkle 3s linear forwards;
         }
 
-        /* Задержка для второй кнопки (перепрыгивание) */
-        .btn-bottom::before {
-            animation-delay: -3s; /* Начинает со середины, чтобы казалось, что искорка одна */
+        @keyframes run-sparkle {
+            from { stroke-dashoffset: 1000; }
+            to { stroke-dashoffset: 0; }
         }
-
-        @keyframes sparkle-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Эффекты при взаимодействии */
-        .lens-button:hover {
-            transform: translateY(-3px); 
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
-        }
-
-        .lens-button:active {
-            transform: scale(0.96) translateY(0);
-            background: rgba(255, 255, 255, 0.12);
-        }
-
     </style>
 </head>
 <body>
 
+    <canvas id="bg-canvas"></canvas>
+
     <div class="container">
         <div class="avatar"></div>
-
         <h1>DaLi STORE 🛍️</h1>
-        
-        <p class="description">
-            Эстетика, формирующая характер. Твой стиль — твоя власть. <br> Начни восхождение к вершине 🕊️
-        </p>
+        <p style="opacity:0.7; font-size:14px; margin-bottom:40px;">Эстетика, формирующая характер.</p>
 
-        <div class="label">Присоединяйся</div>
+        <div class="button-wrapper" id="wrap1">
+            <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
+            <svg class="sparkle-svg"><rect class="sparkle-path" x="2" y="2" width="98.5%" height="95%" rx="33" /></svg>
+        </div>
 
-        <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
-        
-        <a href="https://t.me/SWiWT_Teams" class="lens-button btn-bottom">Связаться / Заказать</a>
+        <div class="button-wrapper" id="wrap2">
+            <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
+            <svg class="sparkle-svg"><rect class="sparkle-path" x="2" y="2" width="98.5%" height="95%" rx="33" /></svg>
+        </div>
     </div>
 
+    <script>
+        // 1. Дышащий фон
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        function res() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = res; res();
+        let t = 0;
+        function draw() {
+            ctx.fillStyle = '#000'; ctx.fillRect(0,0,canvas.width,canvas.height);
+            t += 0.01;
+            for(let i=0; i<2; i++) {
+                let x = canvas.width*(0.5 + Math.sin(t+i)*0.2);
+                let y = canvas.height*(0.5 + Math.cos(t+i)*0.2);
+                let g = ctx.createRadialGradient(x,y,0,x,y,400);
+                g.addColorStop(0, '#1a1a1a'); g.addColorStop(1, 'transparent');
+                ctx.fillStyle = g; ctx.fillRect(0,0,canvas.width,canvas.height);
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+
+        // 2. Очередь искорок
+        const w1 = document.getElementById('wrap1');
+        const w2 = document.getElementById('wrap2');
+        
+        function startCycle() {
+            // Первая кнопка
+            w1.classList.add('active-sparkle');
+            setTimeout(() => {
+                w1.classList.remove('active-sparkle');
+                // Вторая кнопка
+                w2.classList.add('active-sparkle');
+                setTimeout(() => {
+                    w2.classList.remove('active-sparkle');
+                    // Перерыв перед следующим циклом
+                    setTimeout(startCycle, 500);
+                }, 3000); // Длительность анимации
+            }, 3000);
+        }
+        startCycle();
+    </script>
 </body>
 </html>
