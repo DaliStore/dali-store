@@ -5,127 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DaLi STORE</title>
     <style>
-        /* Общие стили фона */
         body {
-            margin: 0;
-            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: -apple-system, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            background-color: #050505; /* Глубокий черный */
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #ffffff;
+            margin: 0;
+            padding: 20px;
         }
 
-        .wrapper {
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
-        }
-
-        /* Аватарка с золотым свечением */
-        .profile-container {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            margin: 0 auto 25px;
-        }
-
+        /* АВАТАРКА: Исправил отображение */
         .avatar {
-            width: 100%;
-            height: 100%;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            object-fit: cover;
             border: 2px solid #d4af37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            /* Обязательно замени 'URL_КАРТИНКИ' на реальную прямую ссылку */
-            background-image: url('https://i.ibb.co/Xf8N4mS/dali-photo.jpg'); 
+            margin-bottom: 20px;
+            background-image: url('https://i.postimg.cc/mD83W0Br/dali.jpg'); /* ПРЯМАЯ ССЫЛКА */
             background-size: cover;
             background-position: center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 800;
-        }
-
-        .description {
+        h1 { font-size: 26px; margin: 0; font-weight: bold; }
+        
+        .desc {
             font-size: 14px;
-            line-height: 1.5;
-            color: #aaaaaa;
-            margin-bottom: 30px;
-            padding: 0 10px;
+            color: #ccc;
+            text-align: center;
+            max-width: 300px;
+            margin: 15px 0 30px;
         }
 
-        .join-label {
-            font-size: 12px;
-            letter-spacing: 2px;
+        .label {
+            font-size: 11px;
             color: #d4af37;
-            margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
         }
 
-        /* Единый блок стеклянных кнопок */
-        .glass-menu {
-            background: rgba(255, 255, 255, 0.03);
+        /* ЕДИНЫЙ СТЕКЛЯННЫЙ БЛОК: Слитные кнопки */
+        .glass-box {
+            width: 100%;
+            max-width: 350px;
+            background: rgba(255, 255, 255, 0.08); /* Эффект стекла */
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            overflow: hidden; /* Чтобы края кнопок не вылезали за радиус */
         }
 
-        .menu-item {
+        .item {
             display: block;
+            width: 100%;
             padding: 20px;
-            color: #ffffff;
+            text-align: center;
             text-decoration: none;
+            color: #fff;
             font-weight: 600;
             font-size: 16px;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.2s;
+            border: none;
+            background: transparent;
+            cursor: pointer;
         }
 
-        /* Убираем нижнюю линию у последней кнопки */
-        .menu-item:last-child {
-            border-bottom: none;
+        /* Разделитель между кнопками */
+        .border-bottom {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Эффект при нажатии/наведении */
-        .menu-item:active {
-            background: rgba(212, 175, 55, 0.2);
-        }
+        /* Золотой текст для первой кнопки */
+        .gold-text { color: #d4af37; }
 
-        /* Золотой акцент для первой кнопки */
-        .primary {
-            color: #d4af37;
-            background: rgba(212, 175, 55, 0.05);
+        .item:active {
+            background: rgba(255, 255, 255, 0.1);
         }
-
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <div class="profile-container">
-            <div class="avatar"></div>
-        </div>
+    <div class="avatar"></div>
 
-        <h1>DaLi STORE 💿</h1>
-        
-        <p class="description">
-            Вещи, которые создают твой вайб. Твой стиль — твои правила. Начни путь к статусу 🕊️
-        </p>
+    <h1>DaLi STORE 💿</h1>
+    
+    <div class="desc">
+        Вещи, которые создают твой вайб. Твой стиль — твои правила. Начни путь к статусу 🕊️
+    </div>
 
-        <div class="join-label">Присоединяйся</div>
+    <div class="label">Присоединяйся</div>
 
-        <div class="glass-menu">
-            <a href="#" class="menu-item primary">Вступить в комьюнити</a>
-            <a href="#" class="menu-item">Связаться / Заказать</a>
-        </div>
+    <div class="glass-box">
+        <a href="ТВОЯ_ССЫЛКА_1" class="item border-bottom gold-text">Вступить в комьюнити</a>
+        <a href="ТВОЯ_ССЫЛКА_2" class="item">Связаться / Заказать</a>
     </div>
 
 </body>
