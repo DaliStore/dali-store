@@ -17,29 +17,30 @@
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            
-            /* Живой переливающийся фон */
-            background: linear-gradient(270deg, #050505, #111, #0a0a0a, #151515, #0a0a0a, #111);
-            background-size: 800% 800%;
-            animation: gradient-waves 25s ease-in-out infinite;
+            background-color: #000; /* Глубокий черный база */
             overflow: hidden;
+            position: relative;
         }
 
-        @keyframes gradient-waves {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* ХОЛСТ ДЛЯ ЖИВЫХ ВОЛН (ФОН) */
+        #waves-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Самый нижний слой */
+            filter: blur(5px); /* Легкое размытие для мягкости */
         }
 
-        /* КОНТЕЙНЕР С ОТДАЛЕНИЕМ */
+        /* КОНТЕЙНЕР (ОТДАЛЕННЫЙ) */
         .container {
             width: 100%;
             max-width: 400px;
             padding: 20px;
             text-align: center;
-            z-index: 10;
-            /* Масштабируем на 90%, чтобы отдалить контент на мобильных */
-            transform: scale(0.9); 
+            z-index: 10; /* Поверх волн */
+            transform: scale(0.9); /* Отдаление контента */
         }
 
         /* АВАТАРКА */
@@ -87,7 +88,7 @@
             font-weight: 600;
         }
 
-        /* КНОПКА: ЧИСТАЯ ПРОЗРАЧНАЯ ЛИНЗА */
+        /* КНОПКА: ГЛЯНЦЕВАЯ ЛИНЗА, ПРЕЛОМЛЯЮЩАЯ ВОЛНЫ */
         .lens-button {
             display: block;
             width: 100%;
@@ -101,17 +102,20 @@
             position: relative;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
+            /* Чуть менее прозрачная база для эффекта стекла */
+            background: rgba(255, 255, 255, 0.15); 
+            
+            /* ЭФФЕКТ СТЕКЛА ДЛЯ ПРЕЛОМЛЕНИЯ ФОНОВЫХ ВОЛН */
+            backdrop-filter: blur(15px); /* Сильное размытие фона внутри линзы */
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
 
-            /* Объем без лишних полосок */
+            /* Множественные тени для объема линзы */
             box-shadow: 
-                0 15px 30px rgba(0, 0, 0, 0.6), 
-                0 0 15px rgba(255, 255, 255, 0.1), 
-                inset 0 12px 18px rgba(255, 255, 255, 0.15), 
-                inset 0 -6px 15px rgba(255, 255, 255, 0.05); 
+                0 15px 35px rgba(0, 0, 0, 0.7), /* Основная тень */
+                0 0 20px rgba(255, 255, 255, 0.15), /* Мягкое внешнее сияние */
+                inset 0 12px 20px rgba(255, 255, 255, 0.2), /* Жесткий блик сверху */
+                inset 0 -6px 15px rgba(255, 255, 255, 0.05); /* Нижний отсвет */
             
             overflow: hidden;
         }
@@ -119,18 +123,20 @@
         /* Эффекты при взаимодействии */
         .lens-button:hover {
             transform: translateY(-3px); 
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
         }
 
         .lens-button:active {
             transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.18);
         }
 
     </style>
 </head>
 <body>
+
+    <canvas id="waves-canvas"></canvas>
 
     <div class="container">
         <div class="avatar"></div>
@@ -147,5 +153,53 @@
         <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
     </div>
 
+    <script>
+        const canvas = document.getElementById('waves-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let offset = 0;
+        const waves = [
+            { amplitude: 15, frequency: 0.015, speed: 0.02, color: 'rgba(26, 26, 26, 0.8)' }, // Темно-серый
+            { amplitude: 20, frequency: 0.012, speed: 0.015, color: 'rgba(10, 10, 10, 1)' }, // Глубокий черный
+            { amplitude: 10, frequency: 0.02, speed: 0.025, color: 'rgba(34, 34, 34, 0.6)' }  // Чуть светлее
+        ];
+
+        function drawWaves() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Заливка базового черного фона
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            offset += 0.01;
+
+            waves.forEach(wave => {
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+
+                for (let x = 0; x < canvas.width; x++) {
+                    const angle = x * wave.frequency + offset * wave.speed;
+                    // Рисуем волну, смещенную вертикально
+                    const y = canvas.height * 0.5 + Math.sin(angle) * wave.amplitude + (waves.indexOf(wave) * 20); 
+                    ctx.lineTo(x, y);
+                }
+
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.fillStyle = wave.color;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(drawWaves);
+        }
+
+        drawWaves();
+    </script>
 </body>
 </html>
