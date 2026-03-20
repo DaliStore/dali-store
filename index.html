@@ -17,12 +17,12 @@
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            background-color: #000; /* Глубокий черный база */
-            overflow: hidden;
+            /* Убрали старый CSS-градиент, теперь фон через Canvas */
+            overflow: hidden; 
             position: relative;
         }
 
-        /* ХОЛСТ ДЛЯ ЖИВЫХ ВОЛН (ФОН) */
+        /* ЭТОТ БЛОК ОТВЕЧАЕТ ЗА ФОН */
         #waves-canvas {
             position: absolute;
             top: 0;
@@ -33,7 +33,7 @@
             filter: blur(5px); /* Легкое размытие для мягкости */
         }
 
-        /* КОНТЕЙНЕР (ОТДАЛЕННЫЙ) */
+        /* КОНТЕЙНЕР (ОТДАЛЕННЫЙ, КАК НА РЕФЕРЕНСЕ) */
         .container {
             width: 100%;
             max-width: 400px;
@@ -88,7 +88,7 @@
             font-weight: 600;
         }
 
-        /* КНОПКА: ГЛЯНЦЕВАЯ ЛИНЗА, ПРЕЛОМЛЯЮЩАЯ ВОЛНЫ */
+        /* КНОПКА: ЧИСТАЯ ПРОЗРАЧНАЯ ЛИНЗА */
         .lens-button {
             display: block;
             width: 100%;
@@ -102,20 +102,18 @@
             position: relative;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             
-            /* Чуть менее прозрачная база для эффекта стекла */
-            background: rgba(255, 255, 255, 0.15); 
+            background: rgba(255, 255, 255, 0.1); 
             
-            /* ЭФФЕКТ СТЕКЛА ДЛЯ ПРЕЛОМЛЕНИЯ ФОНОВЫХ ВОЛН */
-            backdrop-filter: blur(15px); /* Сильное размытие фона внутри линзы */
-            -webkit-backdrop-filter: blur(15px);
+            /* ЭФФЕКТ СТЕКЛА ДЛЯ ПРЕЛОМЛЕНИЯ ВОЛН */
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
 
-            /* Множественные тени для объема линзы */
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.7), /* Основная тень */
-                0 0 20px rgba(255, 255, 255, 0.15), /* Мягкое внешнее сияние */
-                inset 0 12px 20px rgba(255, 255, 255, 0.2), /* Жесткий блик сверху */
-                inset 0 -6px 15px rgba(255, 255, 255, 0.05); /* Нижний отсвет */
+                0 15px 30px rgba(0, 0, 0, 0.6), 
+                0 0 15px rgba(255, 255, 255, 0.1), 
+                inset 0 12px 18px rgba(255, 255, 255, 0.15), 
+                inset 0 -6px 15px rgba(255, 255, 255, 0.05); 
             
             overflow: hidden;
         }
@@ -123,13 +121,13 @@
         /* Эффекты при взаимодействии */
         .lens-button:hover {
             transform: translateY(-3px); 
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
         }
 
         .lens-button:active {
             transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.12);
         }
 
     </style>
@@ -167,9 +165,9 @@
 
         let offset = 0;
         const waves = [
-            { amplitude: 15, frequency: 0.015, speed: 0.02, color: 'rgba(26, 26, 26, 0.8)' }, // Темно-серый
-            { amplitude: 20, frequency: 0.012, speed: 0.015, color: 'rgba(10, 10, 10, 1)' }, // Глубокий черный
-            { amplitude: 10, frequency: 0.02, speed: 0.025, color: 'rgba(34, 34, 34, 0.6)' }  // Чуть светлее
+            { amplitude: 15, frequency: 0.02, speed: 0.03, color: 'rgba(26, 26, 26, 0.8)' }, // Темно-серый
+            { amplitude: 20, frequency: 0.01, speed: 0.02, color: 'rgba(10, 10, 10, 1)' }, // Глубокий черный
+            { amplitude: 10, frequency: 0.03, speed: 0.04, color: 'rgba(34, 34, 34, 0.6)' }  // Чуть светлее
         ];
 
         function drawWaves() {
