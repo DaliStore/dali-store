@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DaLi STORE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -17,10 +17,10 @@
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            /* Живой переливающийся фон */
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #0d0d0d, #111);
+            /* Дышащий темный фон */
+            background: linear-gradient(135deg, #050505, #111, #0a0a0a);
             background-size: 400% 400%;
-            animation: gradient-bg 15s ease infinite;
+            animation: gradient-bg 20s ease infinite;
             overflow-x: hidden;
         }
 
@@ -47,28 +47,29 @@
             background-image: url('https://i.ibb.co/xSHNsYfS/image.png'); 
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
         }
 
         h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 32px; 
+            font-size: 34px; 
             margin: 10px 0; 
             font-weight: 800; 
             letter-spacing: 1px;
+            color: #fff;
         }
 
         .description { 
             font-size: 14px; 
-            font-style: italic;
-            color: #ccc; 
+            font-weight: 300;
+            color: #aaa; 
             margin-bottom: 40px; 
             line-height: 1.6;
-            opacity: 0.9;
+            padding: 0 15px;
         }
 
         .label { 
-            font-size: 12px; 
+            font-size: 11px; 
             color: #d4af37; 
             text-transform: uppercase; 
             letter-spacing: 3px; 
@@ -76,54 +77,65 @@
             font-weight: 600;
         }
 
-        /* КНОПКА-ЛИНЗА */
+        /* КНОПКА: ФУТУРИСТИЧНАЯ ГЛЯНЦЕВАЯ ЛИНЗА */
         .lens-button {
             display: block;
             width: 100%;
             margin-bottom: 25px; /* Разделил их */
-            padding: 24px;
+            padding: 26px 20px;
             text-decoration: none;
-            color: #fff;
+            color: #fff; /* Серебряный/белый текст */
             font-weight: 600;
-            font-size: 18px;
-            border-radius: 50px; /* Более округлые для эффекта линзы */
+            font-size: 17px;
+            border-radius: 20px; /* Углы острее, как на референсе */
             position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease-out;
             
             /* Стеклянная база */
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
 
-            /* Объем и синее свечение */
+            /* ЭФФЕКТ ГЛУБОКОГО СТЕКЛА И НЕОНА */
             box-shadow: 
-                0 15px 25px rgba(0, 0, 0, 0.5), 
-                0 0 20px rgba(0, 102, 255, 0.2), 
-                inset 0 10px 15px rgba(255, 255, 255, 0.1), 
-                inset 0 -5px 15px rgba(0, 102, 255, 0.2);
+                0 15px 35px rgba(0, 0, 0, 0.7), /* Тень снизу */
+                0 0 25px rgba(0, 102, 255, 0.3), /* Внешний синий нимб */
+                inset 0 8px 15px rgba(255, 255, 255, 0.15), /* Мягкий блик внутри сверху */
+                inset 0 -5px 15px rgba(0, 102, 255, 0.2); /* Синий отсвет внутри снизу */
+            
+            overflow: hidden; /* Чтобы блик не вылезал */
         }
 
-        .gold-glow { color: #d4af37; }
-
-        /* Блик линзы */
-        .lens-button::before {
+        /* Жесткий глянцевый блик линзы */
+        .lens-button::after {
             content: '';
             position: absolute;
-            top: 5px;
-            left: 15%;
-            right: 15%;
-            height: 35%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent);
-            border-radius: 40px;
+            top: 4px;
+            left: 5px;
+            right: 5px;
+            height: 45%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 16px 16px 10px 10px;
             pointer-events: none;
+        }
+
+        /* Эффект при наведении */
+        .lens-button:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 18px 45px rgba(0, 0, 0, 0.8),
+                0 0 35px rgba(0, 102, 255, 0.5), /* Усиление синего */
+                inset 0 10px 20px rgba(255, 255, 255, 0.2),
+                inset 0 -7px 18px rgba(0, 102, 255, 0.3);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         /* Эффект при клике */
         .lens-button:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 40px rgba(0, 102, 255, 0.6);
-            background: rgba(0, 102, 255, 0.1);
+            transform: scale(0.97);
+            background: rgba(0, 102, 255, 0.15);
+            box-shadow: 0 0 50px rgba(0, 102, 255, 0.8);
         }
 
     </style>
@@ -141,7 +153,7 @@
 
         <div class="label">Присоединяйся</div>
 
-        <a href="https://t.me/DaLi_STORE_TG" class="lens-button gold-glow">Вступить в комьюнити</a>
+        <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
         
         <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
     </div>
