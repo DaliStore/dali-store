@@ -19,9 +19,9 @@
             color: #fff;
             
             /* ЖИВОЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН (Эффект флага/волн) */
-            background: linear-gradient(270deg, #0a0a0a, #1a1a1a, #0d0d0d, #222, #0d0d0d, #1a1a1a);
-            background-size: 800% 800%; /* Увеличил размер для плавности волн */
-            animation: gradient-waves 20s ease-in-out infinite; /* Ускорил анимацию */
+            background: linear-gradient(270deg, #050505, #111, #0a0a0a, #151515, #0a0a0a, #111);
+            background-size: 800% 800%;
+            animation: gradient-waves 25s ease-in-out infinite;
             overflow-x: hidden;
         }
 
@@ -40,27 +40,34 @@
             z-index: 10;
         }
 
-        /* АВАТАРКА: Исправлена, не черная */
+        /* АВАТАРКА С НОВЫМ ЛОГО */
         .avatar {
             width: 140px;
             height: 140px;
             border-radius: 50%;
             border: 2px solid #d4af37;
             margin: 0 auto 25px;
-            /* ПРЯМАЯ ССЫЛКА НА ЛОГО */
-            background-image: url('https://i.ibb.co/hJxLbZW8/copy-6-DB5-C6-B6-62-D0-45-BF-9991-97-A7-E0-ECC99-B.jpg'); 
+            /* ПРЯМАЯ ССЫЛКА НА НОВОЕ ЛОГО */
+            background-image: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg'); 
             background-size: cover;
             background-position: center;
             box-shadow: 0 0 45px rgba(212, 175, 55, 0.4); /* Золотое свечение */
         }
 
+        /* ЗОЛОТИСТЫЙ ЗАГОЛОВОК */
         h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 36px; 
+            font-size: 38px; 
             margin: 10px 0; 
             font-weight: 800; 
             letter-spacing: 1.5px;
-            color: #fff;
+            
+            /* Градиент для золота */
+            background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
 
         .description { 
@@ -75,39 +82,39 @@
 
         .label { 
             font-size: 11px; 
-            color: #d4af37; 
+            color: #ffdf85; /* Более светлое золото */
             text-transform: uppercase; 
             letter-spacing: 3px; 
             margin-bottom: 25px; 
             font-weight: 600;
         }
 
-        /* КНОПКА: БЕЛАЯ КАПЛЯ / ЛИНЗА */
+        /* КНОПКА: ПРОЗРАЧНАЯ БЕЛАЯ КАПЛЯ */
         .lens-button {
             display: block;
             width: 100%;
             margin-bottom: 25px; /* Разделил их */
             padding: 24px 20px;
             text-decoration: none;
-            color: #111; /* Темный текст для контраста */
+            color: #fff; /* Белый текст для контраста на прозрачном */
             font-weight: 600;
             font-size: 17px;
             border-radius: 50px; /* Скругленные, как капля */
             position: relative;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             
-            /* Стеклянная база (белая) */
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            /* Тончайшая прозрачная база */
+            background: rgba(255, 255, 255, 0.1); /* Сделал ПРОЗРАЧНЕЕ */
+            backdrop-filter: blur(8px); /* Легкое размытие */
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
 
-            /* ЭФФЕКТ ОБЪЕМНОЙ БЕЛОЙ КАПЛИ */
+            /* ЭФФЕКТ ПРОЗРАЧНОЙ ОБЪЕМНОЙ КАПЛИ */
             box-shadow: 
                 0 15px 30px rgba(0, 0, 0, 0.6), /* Тень снизу */
-                0 0 25px rgba(255, 255, 255, 0.4), /* Внешнее белое сияние */
-                inset 0 12px 18px rgba(255, 255, 255, 0.5), /* Жесткий блик сверху для объема */
-                inset 0 -6px 15px rgba(255, 255, 255, 0.2); /* Мягкий отсвет снизу внутри */
+                0 0 15px rgba(255, 255, 255, 0.15), /* Мягкое внешнее сияние */
+                inset 0 12px 18px rgba(255, 255, 255, 0.2), /* Жесткий блик сверху для объема */
+                inset 0 -6px 15px rgba(255, 255, 255, 0.1); /* Мягкий отсвет снизу внутри */
             
             overflow: hidden;
         }
@@ -120,16 +127,22 @@
             left: 15%;
             right: 15%;
             height: 30%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
             border-radius: 40px;
             pointer-events: none;
         }
 
         /* Эффект при наведении/нажатии */
+        .lens-button:hover {
+            transform: translateY(-3px); /* Легкое всплытие */
+            background: rgba(255, 255, 255, 0.2); /* Немного ярче */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
         .lens-button:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
+            transform: scale(0.96) translateY(0);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
     </style>
