@@ -17,14 +17,16 @@
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            /* Дышащий темный фон */
-            background: linear-gradient(135deg, #050505, #111, #0a0a0a);
-            background-size: 400% 400%;
-            animation: gradient-bg 20s ease infinite;
+            
+            /* ЖИВОЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН (Эффект флага/волн) */
+            background: linear-gradient(270deg, #0a0a0a, #1a1a1a, #0d0d0d, #222, #0d0d0d, #1a1a1a);
+            background-size: 800% 800%; /* Увеличил размер для плавности волн */
+            animation: gradient-waves 20s ease-in-out infinite; /* Ускорил анимацию */
             overflow-x: hidden;
         }
 
-        @keyframes gradient-bg {
+        /* Анимация волн */
+        @keyframes gradient-waves {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -35,37 +37,40 @@
             max-width: 380px;
             padding: 20px;
             text-align: center;
+            z-index: 10;
         }
 
-        /* АВАТАРКА */
+        /* АВАТАРКА: Исправлена, не черная */
         .avatar {
             width: 140px;
             height: 140px;
             border-radius: 50%;
             border: 2px solid #d4af37;
             margin: 0 auto 25px;
-            background-image: url('<a href="https://ibb.co/hJxLbZW8"><img src="https://i.ibb.co/hJxLbZW8/copy-6-DB5-C6-B6-62-D0-45-BF-9991-97-A7-E0-ECC99-B.jpg" alt="copy-6-DB5-C6-B6-62-D0-45-BF-9991-97-A7-E0-ECC99-B" border="0"></a>'); 
+            /* ПРЯМАЯ ССЫЛКА НА ЛОГО */
+            background-image: url('https://i.ibb.co/hJxLbZW8/copy-6-DB5-C6-B6-62-D0-45-BF-9991-97-A7-E0-ECC99-B.jpg'); 
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 45px rgba(212, 175, 55, 0.4); /* Золотое свечение */
         }
 
         h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 34px; 
+            font-size: 36px; 
             margin: 10px 0; 
             font-weight: 800; 
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             color: #fff;
         }
 
         .description { 
             font-size: 14px; 
             font-weight: 300;
-            color: #aaa; 
-            margin-bottom: 40px; 
+            color: #ccc; 
+            margin-bottom: 45px; 
             line-height: 1.6;
             padding: 0 15px;
+            opacity: 0.8;
         }
 
         .label { 
@@ -77,65 +82,54 @@
             font-weight: 600;
         }
 
-        /* КНОПКА: ФУТУРИСТИЧНАЯ ГЛЯНЦЕВАЯ ЛИНЗА */
+        /* КНОПКА: БЕЛАЯ КАПЛЯ / ЛИНЗА */
         .lens-button {
             display: block;
             width: 100%;
             margin-bottom: 25px; /* Разделил их */
-            padding: 26px 20px;
+            padding: 24px 20px;
             text-decoration: none;
-            color: #fff; /* Серебряный/белый текст */
+            color: #111; /* Темный текст для контраста */
             font-weight: 600;
             font-size: 17px;
-            border-radius: 20px; /* Углы острее, как на референсе */
+            border-radius: 50px; /* Скругленные, как капля */
             position: relative;
-            transition: all 0.3s ease-out;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             
-            /* Стеклянная база */
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* Стеклянная база (белая) */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
 
-            /* ЭФФЕКТ ГЛУБОКОГО СТЕКЛА И НЕОНА */
+            /* ЭФФЕКТ ОБЪЕМНОЙ БЕЛОЙ КАПЛИ */
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.7), /* Тень снизу */
-                0 0 25px rgba(0, 102, 255, 0.3), /* Внешний синий нимб */
-                inset 0 8px 15px rgba(255, 255, 255, 0.15), /* Мягкий блик внутри сверху */
-                inset 0 -5px 15px rgba(0, 102, 255, 0.2); /* Синий отсвет внутри снизу */
+                0 15px 30px rgba(0, 0, 0, 0.6), /* Тень снизу */
+                0 0 25px rgba(255, 255, 255, 0.4), /* Внешнее белое сияние */
+                inset 0 12px 18px rgba(255, 255, 255, 0.5), /* Жесткий блик сверху для объема */
+                inset 0 -6px 15px rgba(255, 255, 255, 0.2); /* Мягкий отсвет снизу внутри */
             
-            overflow: hidden; /* Чтобы блик не вылезал */
+            overflow: hidden;
         }
 
-        /* Жесткий глянцевый блик линзы */
+        /* Дополнительный верхний глянцевый блик */
         .lens-button::after {
             content: '';
             position: absolute;
-            top: 4px;
-            left: 5px;
-            right: 5px;
-            height: 45%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
-            border-radius: 16px 16px 10px 10px;
+            top: 5px;
+            left: 15%;
+            right: 15%;
+            height: 30%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 40px;
             pointer-events: none;
         }
 
-        /* Эффект при наведении */
-        .lens-button:hover {
-            transform: scale(1.02);
-            box-shadow: 
-                0 18px 45px rgba(0, 0, 0, 0.8),
-                0 0 35px rgba(0, 102, 255, 0.5), /* Усиление синего */
-                inset 0 10px 20px rgba(255, 255, 255, 0.2),
-                inset 0 -7px 18px rgba(0, 102, 255, 0.3);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        /* Эффект при клике */
+        /* Эффект при наведении/нажатии */
         .lens-button:active {
-            transform: scale(0.97);
-            background: rgba(0, 102, 255, 0.15);
-            box-shadow: 0 0 50px rgba(0, 102, 255, 0.8);
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
         }
 
     </style>
