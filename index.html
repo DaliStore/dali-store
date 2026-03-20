@@ -18,40 +18,41 @@
             min-height: 100vh;
             color: #fff;
             
-            /* ЖИВОЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН (Эффект флага/волн) */
+            /* Живой переливающийся фон */
             background: linear-gradient(270deg, #050505, #111, #0a0a0a, #151515, #0a0a0a, #111);
             background-size: 800% 800%;
             animation: gradient-waves 25s ease-in-out infinite;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Анимация волн */
         @keyframes gradient-waves {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
+        /* КОНТЕЙНЕР С ОТДАЛЕНИЕМ */
         .container {
             width: 100%;
-            max-width: 380px;
+            max-width: 400px;
             padding: 20px;
             text-align: center;
             z-index: 10;
+            /* Масштабируем на 90%, чтобы отдалить контент на мобильных */
+            transform: scale(0.9); 
         }
 
-        /* АВАТАРКА С НОВЫМ ЛОГО */
+        /* АВАТАРКА */
         .avatar {
             width: 140px;
             height: 140px;
             border-radius: 50%;
             border: 2px solid #d4af37;
             margin: 0 auto 25px;
-            /* ПРЯМАЯ ССЫЛКА НА НОВОЕ ЛОГО */
             background-image: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg'); 
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 45px rgba(212, 175, 55, 0.4); /* Золотое свечение */
+            box-shadow: 0 0 45px rgba(212, 175, 55, 0.4);
         }
 
         /* ЗОЛОТИСТЫЙ ЗАГОЛОВОК */
@@ -61,12 +62,9 @@
             margin: 10px 0; 
             font-weight: 800; 
             letter-spacing: 1.5px;
-            
-            /* Градиент для золота */
             background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-fill-color: transparent;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
 
@@ -82,67 +80,52 @@
 
         .label { 
             font-size: 11px; 
-            color: #ffdf85; /* Более светлое золото */
+            color: #ffdf85; 
             text-transform: uppercase; 
             letter-spacing: 3px; 
             margin-bottom: 25px; 
             font-weight: 600;
         }
 
-        /* КНОПКА: ПРОЗРАЧНАЯ БЕЛАЯ КАПЛЯ */
+        /* КНОПКА: ЧИСТАЯ ПРОЗРАЧНАЯ ЛИНЗА */
         .lens-button {
             display: block;
             width: 100%;
-            margin-bottom: 25px; /* Разделил их */
+            margin-bottom: 25px; 
             padding: 24px 20px;
             text-decoration: none;
-            color: #fff; /* Белый текст для контраста на прозрачном */
+            color: #fff; 
             font-weight: 600;
             font-size: 17px;
-            border-radius: 50px; /* Скругленные, как капля */
+            border-radius: 50px; 
             position: relative;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             
-            /* Тончайшая прозрачная база */
-            background: rgba(255, 255, 255, 0.1); /* Сделал ПРОЗРАЧНЕЕ */
-            backdrop-filter: blur(8px); /* Легкое размытие */
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(8px); 
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
 
-            /* ЭФФЕКТ ПРОЗРАЧНОЙ ОБЪЕМНОЙ КАПЛИ */
+            /* Объем без лишних полосок */
             box-shadow: 
-                0 15px 30px rgba(0, 0, 0, 0.6), /* Тень снизу */
-                0 0 15px rgba(255, 255, 255, 0.15), /* Мягкое внешнее сияние */
-                inset 0 12px 18px rgba(255, 255, 255, 0.2), /* Жесткий блик сверху для объема */
-                inset 0 -6px 15px rgba(255, 255, 255, 0.1); /* Мягкий отсвет снизу внутри */
+                0 15px 30px rgba(0, 0, 0, 0.6), 
+                0 0 15px rgba(255, 255, 255, 0.1), 
+                inset 0 12px 18px rgba(255, 255, 255, 0.15), 
+                inset 0 -6px 15px rgba(255, 255, 255, 0.05); 
             
             overflow: hidden;
         }
 
-        /* Дополнительный верхний глянцевый блик */
-        .lens-button::after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 15%;
-            right: 15%;
-            height: 30%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
-            border-radius: 40px;
-            pointer-events: none;
-        }
-
-        /* Эффект при наведении/нажатии */
+        /* Эффекты при взаимодействии */
         .lens-button:hover {
-            transform: translateY(-3px); /* Легкое всплытие */
-            background: rgba(255, 255, 255, 0.2); /* Немного ярче */
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px); 
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
         }
 
         .lens-button:active {
-            transform: scale(0.96) translateY(0);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.12);
         }
 
     </style>
@@ -161,7 +144,6 @@
         <div class="label">Присоединяйся</div>
 
         <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
-        
         <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
     </div>
 
