@@ -7,94 +7,111 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
     
-    <title>DaLi STORE — NEW LOOK</title>
+    <title>DaLi STORE — PREMIUM LOOK</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <style>
         @keyframes pulseBg {
-            0% { transform: translate(0,0) scale(1); }
-            100% { transform: translate(20px, 20px) scale(1.1); }
+            0% { transform: translate(0,0) scale(1); opacity: 0.3; }
+            100% { transform: translate(30px, 30px) scale(1.2); opacity: 0.6; }
         }
 
         body {
-            font-family: -apple-system, system-ui, sans-serif;
-            background: #ffffff !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a0a !important; /* Глубокий черный */
             margin: 0; padding: 20px;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             min-height: 100vh; text-align: center;
             overflow: hidden; position: relative;
+            color: #ffffff;
         }
 
-        /* Новые пятна фона с другими именами */
+        /* Золотые пятна фона */
         .bg-magic-spot {
             position: absolute; border-radius: 50%;
-            filter: blur(60px); -webkit-filter: blur(60px);
-            z-index: -1; opacity: 0.5;
-            animation: pulseBg 8s infinite alternate ease-in-out;
+            filter: blur(80px); -webkit-filter: blur(80px);
+            z-index: -1;
+            animation: pulseBg 10s infinite alternate ease-in-out;
         }
 
         .avatar-box {
-            width: 145px; height: 145px; border-radius: 50%;
-            margin-bottom: 25px; border: 3px solid #2481cc;
-            box-shadow: 0 15px 35px rgba(36, 129, 204, 0.2);
-            overflow: hidden; background: #000;
+            width: 140px; height: 140px; border-radius: 50%;
+            margin-bottom: 25px; 
+            border: 2px solid #d4af37; /* Золотая нить */
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            overflow: hidden; 
+            background: #000;
+            position: relative;
         }
 
         .img-fix {
             width: 100%; height: 100%; object-fit: cover;
-            transform: scale(1.75);
+            /* Убрал сильный зум, чтобы лого было видно целиком */
         }
 
-        h1 { font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 10px; }
-        p { font-size: 16px; color: #475569; max-width: 280px; margin-bottom: 40px; }
+        h1 { font-size: 32px; font-weight: 900; color: #ffffff; margin-bottom: 10px; letter-spacing: -0.5px; }
+        p { font-size: 15px; color: #a1a1a1; max-width: 300px; margin-bottom: 40px; line-height: 1.5; }
 
-        .stack { width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 18px; }
+        .stack { width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 16px; }
 
-        /* Та самая кнопка-стекло */
-        .ultra-glass-element {
+        /* Золотая кнопка "Power" */
+        .gold-power-btn {
             display: flex; align-items: center; justify-content: center;
-            padding: 21px; border-radius: 22px;
-            font-size: 18px; font-weight: 800; text-decoration: none;
-            /* ГЛАССМОРФИЗМ */
-            background: rgba(255, 255, 255, 0.4) !important;
-            border: 1.5px solid rgba(36, 129, 204, 0.3) !important;
-            color: #1d4ed8 !important;
-            backdrop-filter: blur(25px) !important;
-            -webkit-backdrop-filter: blur(25px) !important;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            padding: 20px; border-radius: 18px;
+            font-size: 17px; font-weight: 800; text-decoration: none;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: #000; border: none;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            transition: transform 0.2s ease;
         }
 
-        .blue-power-btn {
+        /* Стеклянная кнопка "Dark" */
+        .dark-glass-element {
             display: flex; align-items: center; justify-content: center;
-            padding: 21px; border-radius: 22px;
-            font-size: 18px; font-weight: 800; text-decoration: none;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: #fff; border: none;
-            box-shadow: 0 10px 25px rgba(37,99,235,0.4);
+            padding: 20px; border-radius: 18px;
+            font-size: 17px; font-weight: 700; text-decoration: none;
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            color: #d4af37 !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .gold-power-btn:active, .dark-glass-element:active {
+            transform: scale(0.97);
+        }
+
+        .links-title {
+            font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+            color: #d4af37; margin-bottom: 10px; opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <div class="bg-magic-spot" style="width:300px; height:300px; background:rgba(36,129,204,0.15); top:-100px; right:-50px;"></div>
-    <div class="bg-magic-spot" style="width:250px; height:250px; background:rgba(36,129,204,0.1); bottom:-50px; left:-50px; animation-delay:-4s;"></div>
+    <div class="bg-magic-spot" style="width:350px; height:350px; background:rgba(212, 175, 55, 0.1); top:-150px; left:-100px;"></div>
+    <div class="bg-magic-spot" style="width:300px; height:300px; background:rgba(184, 134, 11, 0.08); bottom:-100px; right:-50px; animation-delay:-5s;"></div>
 
     <div class="avatar-box">
-        <img src="https://i.ibb.co/XfSSb3YH/IMG-5353.jpg" class="img-fix">
+        <img src="https://i.ibb.co/3ykG6vXj/image.png" class="img-fix">
     </div>
 
-    <h1>DaLi STORE 👋</h1>
-    <p>Вещи, которые создают твой вайб 📦 Твой стиль — твои правила. Начни путь с DaLi STORE 🕊️</p>
+    <h1>DaLi STORE 📀</h1>
+    <p>Вещи, которые создают твой вайб. Твой стиль — твои правила. Начни путь к статусу 🕊️</p>
 
+    <div class="links-title">ПРИСОЕДИНЯЙСЯ</div>
     <div class="stack">
-        <a href="https://t.me/DaLi_STORE_TG" class="blue-power-btn">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="ultra-glass-element">Связаться / Заказать</a>
+        <a href="https://t.me/DaLi_STORE_TG" class="gold-power-btn">Вступить в комьюнити</a>
+        <a href="https://t.me/SWiWT_Teams" class="dark-glass-element">Связаться / Заказать</a>
+        <a href="https://t.me/danreads1" class="dark-glass-element">Книги / Мой путь</a>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-        tg.backgroundColor = '#ffffff';
+        tg.backgroundColor = '#0a0a0a';
+        tg.headerColor = '#0a0a0a';
     </script>
 </body>
 </html>
