@@ -17,23 +17,23 @@
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            /* Убрали старый CSS-градиент, теперь фон через Canvas */
+            background-color: #000; /* Глубокий черный база */
             overflow: hidden; 
             position: relative;
         }
 
-        /* ЭТОТ БЛОК ОТВЕЧАЕТ ЗА ФОН */
-        #waves-canvas {
+        /* ХОЛСТ ДЛЯ ДЫШАЩЕГО ТЕМНОГО ФОНА */
+        #breathe-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1; /* Самый нижний слой */
-            filter: blur(5px); /* Легкое размытие для мягкости */
+            filter: blur(15px); /* Сильное размытие для мягкости дыхания */
         }
 
-        /* КОНТЕЙНЕР (ОТДАЛЕННЫЙ, КАК НА РЕФЕРЕНСЕ) */
+        /* КОНТЕЙНЕР (ОТДАЛЕННЫЙ) */
         .container {
             width: 100%;
             max-width: 400px;
@@ -88,26 +88,30 @@
             font-weight: 600;
         }
 
+        /* КОНТЕЙНЕР КНОПКИ ДЛЯ ИСКОРКИ */
+        .button-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
         /* КНОПКА: ЧИСТАЯ ПРОЗРАЧНАЯ ЛИНЗА */
         .lens-button {
             display: block;
             width: 100%;
-            margin-bottom: 25px; 
             padding: 24px 20px;
             text-decoration: none;
             color: #fff; 
             font-weight: 600;
             font-size: 17px;
             border-radius: 50px; 
-            position: relative;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             
+            /* Стеклянная база */
             background: rgba(255, 255, 255, 0.1); 
-            
-            /* ЭФФЕКТ СТЕКЛА ДЛЯ ПРЕЛОМЛЕНИЯ ВОЛН */
             backdrop-filter: blur(10px); 
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Тончайшая обводка */
 
             box-shadow: 
                 0 15px 30px rgba(0, 0, 0, 0.6), 
@@ -116,6 +120,29 @@
                 inset 0 -6px 15px rgba(255, 255, 255, 0.05); 
             
             overflow: hidden;
+            z-index: 2; /* Поверх SVG-обводки */
+            position: relative;
+        }
+
+        /* SVG-ОБВОДКА ДЛЯ ИСКОРКИ */
+        .sparkle-path {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Под кнопкой */
+            pointer-events: none; /* Не мешать нажатию */
+            opacity: 0; /* Невидимый путь */
+        }
+
+        /* ИСКОРКА (БЕГАЮЩИЙ БЛИК) */
+        .sparkle-dot {
+            fill: #fff;
+            /* Мягкое белое свечение и след */
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1)) 
+                    drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+            visibility: hidden; /* Изначально скрыта */
         }
 
         /* Эффекты при взаимодействии */
@@ -134,7 +161,7 @@
 </head>
 <body>
 
-    <canvas id="waves-canvas"></canvas>
+    <canvas id="breathe-canvas"></canvas>
 
     <div class="container">
         <div class="avatar"></div>
@@ -147,12 +174,31 @@
 
         <div class="label">Присоединяйся</div>
 
-        <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
+        <div class="button-wrapper">
+            <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
+            <svg class="sparkle-path" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <rect rx="50" ry="50" x="0" y="0" width="100" height="100" />
+            </svg>
+            <svg style="position: absolute; width: 0; height: 0;">
+                <defs>
+                    <g id="sparkle">
+                        <circle cx="0" cy="0" r="1.5" />
+                    </g>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="button-wrapper">
+            <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
+            <svg class="sparkle-path" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <rect rx="50" ry="50" x="0" y="0" width="100" height="100" />
+            </svg>
+        </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('waves-canvas');
+        // 1. АНИМАЦИЯ ДЫШАЩЕГО ТЕМНОГО ФОНА (CANVAS)
+        const canvas = document.getElementById('breathe-canvas');
         const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
@@ -163,41 +209,107 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        let offset = 0;
-        const waves = [
-            { amplitude: 15, frequency: 0.02, speed: 0.03, color: 'rgba(26, 26, 26, 0.8)' }, // Темно-серый
-            { amplitude: 20, frequency: 0.01, speed: 0.02, color: 'rgba(10, 10, 10, 1)' }, // Глубокий черный
-            { amplitude: 10, frequency: 0.03, speed: 0.04, color: 'rgba(34, 34, 34, 0.6)' }  // Чуть светлее
+        let time = 0;
+        const breathingPoints = [
+            { xBase: 0.3, yBase: 0.4, color: 'rgba(26, 26, 26, 0.7)' }, // Темно-серый
+            { xBase: 0.7, yBase: 0.6, color: 'rgba(15, 15, 15, 1)' }, // Почти черный
+            { xBase: 0.5, yBase: 0.8, color: 'rgba(34, 34, 34, 0.5)' }  // Чуть светлее
         ];
 
-        function drawWaves() {
+        function drawBreathing() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             // Заливка базового черного фона
             ctx.fillStyle = '#000';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            offset += 0.01;
+            time += 0.005; // Скорость дыхания
 
-            waves.forEach(wave => {
-                ctx.beginPath();
-                ctx.moveTo(0, canvas.height);
-
-                for (let x = 0; x < canvas.width; x++) {
-                    const angle = x * wave.frequency + offset * wave.speed;
-                    // Рисуем волну, смещенную вертикально
-                    const y = canvas.height * 0.5 + Math.sin(angle) * wave.amplitude + (waves.indexOf(wave) * 20); 
-                    ctx.lineTo(x, y);
-                }
-
-                ctx.lineTo(canvas.width, canvas.height);
-                ctx.fillStyle = wave.color;
-                ctx.fill();
+            breathingPoints.forEach(point => {
+                // Колыхание точек дыхания
+                const x = point.xBase * canvas.width + Math.sin(time + breathingPoints.indexOf(point)) * (canvas.width * 0.1);
+                const y = point.yBase * canvas.height + Math.cos(time + breathingPoints.indexOf(point)) * (canvas.height * 0.1);
+                
+                // Рисуем мягкое темное пятно
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, canvas.width * 0.5);
+                gradient.addColorStop(0, point.color);
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
             });
 
-            requestAnimationFrame(drawWaves);
+            requestAnimationFrame(drawBreathing);
         }
 
-        drawWaves();
+        drawBreathing();
+
+
+        // 2. АНИМАЦИЯ БЕГАЮЩЕЙ ИСКОРКИ ПО ОБВОДКЕ (SVG + JS)
+        const buttonsWrappers = document.querySelectorAll('.button-wrapper');
+        const sparkles = [];
+
+        // Создаем искорки для каждой кнопки
+        buttonsWrappers.forEach(wrapper => {
+            const svgSparkle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svgSparkle.setAttribute('viewBox', '0 0 100 100');
+            svgSparkle.setAttribute('preserveAspectRatio', 'none');
+            svgSparkle.style.position = 'absolute';
+            svgSparkle.style.top = '0';
+            svgSparkle.style.left = '0';
+            svgSparkle.style.width = '100%';
+            svgSparkle.style.height = '100%';
+            svgSparkle.style.pointerEvents = 'none';
+            svgSparkle.style.zIndex = '3'; // Самый верхний слой обводки
+
+            const sparkleDot = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+            sparkleDot.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#sparkle');
+            sparkleDot.classList.add('sparkle-dot');
+            
+            svgSparkle.appendChild(sparkleDot);
+            wrapper.appendChild(svgSparkle);
+
+            const path = wrapper.querySelector('.sparkle-path rect');
+            const pathLength = path.getTotalLength();
+
+            sparkles.push({
+                dot: sparkleDot,
+                path: path,
+                length: pathLength,
+                progress: 0,
+                isActive: false
+            });
+        });
+
+        const sparkleSpeed = 1.5; // Скорость искорки (сек на оборот)
+        let activeSparkleIndex = 0; // Начинаем с первой кнопки
+
+        function updateSparkle() {
+            // Прячем искорки
+            sparkles.forEach(s => s.dot.style.visibility = 'hidden');
+
+            const current = sparkles[activeSparkleIndex];
+            current.dot.style.visibility = 'visible'; // Показываем активную
+
+            // Движение
+            current.progress += (1 / 60) / sparkleSpeed; 
+
+            if (current.progress >= 1) {
+                // Полный оборот сделан, перепрыгиваем на следующую кнопку
+                current.progress = 0;
+                activeSparkleIndex = (activeSparkleIndex + 1) % sparkles.length;
+            } else {
+                // Расчет позиции искорки по пути SVG
+                const point = current.path.getPointAtLength(current.progress * current.length);
+                current.dot.setAttribute('x', point.x);
+                current.dot.setAttribute('y', point.y);
+            }
+
+            requestAnimationFrame(updateSparkle);
+        }
+
+        // Запускаем через секунду после загрузки, чтобы всё успело прорисоваться
+        setTimeout(updateSparkle, 1000);
+
     </script>
 </body>
 </html>
