@@ -16,16 +16,15 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Чтобы градиент не вылезал */
+            overflow: hidden;
             color: #fff;
             
-            /* ПЕРЕЛИВАЮЩИЙСЯ ФОН */
-            background: linear-gradient(135deg, #1a1a1a, #0d0d0d, #262626, #0a0a0a);
+            /* ЖИВОЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН */
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #050505, #111);
             background-size: 400% 400%;
-            animation: gradient-bg 15s ease infinite;
+            animation: gradient-bg 20s ease infinite;
         }
 
-        /* Анимация фона */
         @keyframes gradient-bg {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -37,7 +36,7 @@
             max-width: 360px;
             padding: 20px;
             text-align: center;
-            z-index: 10; /* Поверх фона */
+            z-index: 10;
         }
 
         /* АВАТАРКА */
@@ -50,7 +49,7 @@
             background-image: url('https://i.ibb.co/xSHNsYfS/image.png'); 
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); /* Золотое свечение */
         }
 
         h1 { font-size: 28px; margin: 10px 0; font-weight: 800; letter-spacing: 1px; }
@@ -72,39 +71,69 @@
             font-weight: bold;
         }
 
-        /* СЛИТНЫЙ СТЕКЛЯННЫЙ БЛОК */
-        .glass-menu {
-            /* ЭФФЕКТ СТЕКЛА */
-            background: rgba(255, 255, 255, 0.05); /* Легкая прозрачность */
-            backdrop-filter: blur(25px); /* Сильное размытие фона */
-            -webkit-backdrop-filter: blur(25px); /* Для Сафари */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая грань */
-            border-radius: 24px;
+        /* ЕДИНЫЙ СТЕКЛЯННЫЙ БЛОК: ОБЪЕМНАЯ ЛИНЗА */
+        .glass-box {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4); /* Глубокая тень */
+            
+            /* СЛОЖНЫЕ ТЕНИ ДЛЯ ОБЪЕМА И СИНЕГО СВЕЧЕНИЯ */
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.6), /* Основная тень */
+                0 0 25px rgba(0, 102, 255, 0.3), /* Внешний синий нимб */
+                inset 0 10px 15px rgba(255, 255, 255, 0.2), /* Верхний блик внутри */
+                inset 0 -5px 10px rgba(0, 102, 255, 0.2); /* Нижний синий отсвет внутри */
+            
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .glass-box:hover {
+            box-shadow: 
+                0 15px 45px rgba(0, 0, 0, 0.8),
+                0 0 35px rgba(0, 102, 255, 0.5), /* Синее свечение становится ярче */
+                inset 0 12px 18px rgba(255, 255, 255, 0.25),
+                inset 0 -7px 12px rgba(0, 102, 255, 0.3);
+        }
+
+        /* Элемент блика для натуральности */
+        .glass-box::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            height: 40%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 24px 24px 10px 10px;
+            pointer-events: none;
         }
 
         /* КНОПКИ */
         .btn {
-            padding: 22px;
+            padding: 24px;
             color: #fff;
             text-decoration: none;
             font-weight: 600;
             font-size: 17px;
-            transition: background 0.3s, transform 0.1s;
+            transition: background 0.3s;
             display: block;
+            position: relative;
+            z-index: 2; /* Поверх блика */
         }
 
-        /* Разделительная линия */
+        /* Разделитель между кнопками */
         .btn-top {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #d4af37;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: #d4af37; /* Выделяем золотом первую кнопку */
         }
 
         .btn:active {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 102, 255, 0.15); /* Синий оттенок при клике */
             transform: scale(0.98);
         }
 
@@ -123,7 +152,7 @@
 
         <div class="join-label">Присоединяйся</div>
 
-        <div class="glass-menu">
+        <div class="glass-box">
             <a href="https://t.me/DaLi_STORE_TG" class="btn btn-top">Вступить в комьюнити</a>
             <a href="https://t.me/SWiWT_Teams" class="btn">Связаться / Заказать</a>
         </div>
