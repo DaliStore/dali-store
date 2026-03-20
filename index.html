@@ -4,171 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DaLi STORE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
     <style>
+        /* Обнуление */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Montserrat', sans-serif;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; color: #fff;
-            background-color: #000; overflow: hidden; position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            
+            /* ЖИВОЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН */
+            background: linear-gradient(135deg, #1a1a1a, #0d0d0d, #262626, #0a0a0a);
+            background-size: 400% 400%;
+            animation: gradient-bg 20s ease infinite;
+            overflow-x: hidden;
         }
 
-        #breathe-canvas {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; z-index: 1;
-            filter: blur(20px);
+        /* Анимация фона */
+        @keyframes gradient-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
+        /* КОНТЕЙНЕР (ОТДАЛЕННЫЙ) */
         .container {
-            width: 100%; max-width: 400px;
-            padding: 20px; text-align: center;
-            z-index: 10; transform: scale(0.9);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+            transform: scale(0.9); /* Отдаление контента */
         }
 
+        /* АВАТАРКА */
         .avatar {
-            width: 140px; height: 140px;
-            border-radius: 50%; border: 2px solid #d4af37;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
             margin: 0 auto 25px;
             background-image: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg'); 
-            background-size: cover; background-position: center;
+            background-size: cover;
+            background-position: center;
             box-shadow: 0 0 45px rgba(212, 175, 55, 0.4);
         }
 
+        /* ЗОЛОТИСТЫЙ ЗАГОЛОВОК */
         h1 { 
-            font-family: 'Playfair Display', serif; font-size: 38px; 
-            margin: 10px 0; font-weight: 800; letter-spacing: 1.5px;
+            font-family: 'Playfair Display', serif; 
+            font-size: 38px; 
+            margin: 10px 0; 
+            font-weight: 800; 
+            letter-spacing: 1.5px;
             background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
 
-        .description { font-size: 14px; font-weight: 300; color: #ccc; margin-bottom: 45px; opacity: 0.8; }
-        .label { font-size: 11px; color: #ffdf85; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px; font-weight: 600; }
+        .description { 
+            font-size: 14px; 
+            font-weight: 300;
+            color: #ccc; 
+            margin-bottom: 45px; 
+            line-height: 1.6;
+            padding: 0 15px;
+            opacity: 0.8;
+        }
 
-        .button-wrapper { position: relative; margin-bottom: 25px; width: 100%; }
+        .label { 
+            font-size: 11px; 
+            color: #ffdf85; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            margin-bottom: 25px; 
+            font-weight: 600;
+        }
 
+        /* КНОПКА: ОБЪЕМНАЯ ГЛЯНЦЕВАЯ ЛИНЗА */
         .lens-button {
-            display: block; width: 100%; padding: 24px 20px;
-            text-decoration: none; color: #fff; font-weight: 600; font-size: 17px;
-            border-radius: 50px; position: relative; z-index: 5;
-            background: rgba(255, 255, 255, 0.08); 
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 10px 20px rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s;
+            display: block;
+            width: 100%;
+            margin-bottom: 25px; 
+            padding: 24px 20px;
+            text-decoration: none;
+            color: #fff; 
+            font-weight: 600;
+            font-size: 17px;
+            border-radius: 50px; /* Скругленные, как капля */
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+            /* Стеклянная база */
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Тончайшая обводка */
+
+            /* МНОЖЕСТВЕННЫЕ ТЕНИ ДЛЯ ОБЪЕМА И ВОЛН ВНУТРИ */
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.7), /* Основная тень */
+                0 0 15px rgba(255, 255, 255, 0.15), /* Мягкое внешнее сияние */
+                inset 0 12px 18px rgba(255, 255, 255, 0.2), /* Жесткий блик сверху для объема */
+                inset 0 -6px 15px rgba(255, 255, 255, 0.05); /* Мягкий отсвет снизу внутри */
+            
+            overflow: hidden;
+            z-index: 1;
         }
 
-        /* SVG слой для искорки */
-        .sparkle-container {
-            position: absolute; top: -2px; left: -2px;
-            width: calc(100% + 4px); height: calc(100% + 4px);
-            z-index: 6; pointer-events: none;
+        /* ИСКОРКА-ОБВОДКА (ЧИСТЫЙ CSS) */
+        .lens-button::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px; /* Чуть шире кнопки */
+            border-radius: 52px; /* Точно повторяем контур */
+            
+            /* Светящийся бег по кругу */
+            background: conic-gradient(from 0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 15%, transparent 100%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-clip: content-box, border-box;
+            mask-clip: content-box, border-box;
+            -webkit-mask-composite: source-out;
+            mask-composite: exclude;
+            
+            border: 3px solid transparent; /* Тонкий след */
+            opacity: 1;
+            z-index: -1; /* Позади текста */
+            
+            /* Анимация искорки */
+            animation: sparkle-spin 6s linear infinite; 
         }
 
-        .sparkle-path { fill: none; stroke: none; }
-        
-        .sparkle-dot {
-            fill: #fff;
-            filter: blur(2px) drop-shadow(0 0 8px #fff);
-            opacity: 0;
-            transition: opacity 0.4s;
+        /* Задержка для второй кнопки (перепрыгивание) */
+        .btn-bottom::before {
+            animation-delay: -3s; /* Начинает со середины, чтобы казалось, что искорка одна */
         }
 
-        .lens-button:active { transform: scale(0.97); }
+        @keyframes sparkle-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Эффекты при взаимодействии */
+        .lens-button:hover {
+            transform: translateY(-3px); 
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .lens-button:active {
+            transform: scale(0.96) translateY(0);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
     </style>
 </head>
 <body>
 
-    <canvas id="breathe-canvas"></canvas>
-
     <div class="container">
         <div class="avatar"></div>
+
         <h1>DaLi STORE 🛍️</h1>
-        <p class="description">Эстетика, формирующая характер. Твой стиль — твоя власть.</p>
+        
+        <p class="description">
+            Эстетика, формирующая характер. Твой стиль — твоя власть. <br> Начни восхождение к вершине 🕊️
+        </p>
+
         <div class="label">Присоединяйся</div>
 
-        <div class="button-wrapper">
-            <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
-            <svg class="sparkle-container">
-                <rect class="sparkle-path" x="2" y="2" width="98%" height="96%" rx="35" ry="35" />
-                <circle class="sparkle-dot" r="3" />
-            </svg>
-        </div>
-
-        <div class="button-wrapper">
-            <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
-            <svg class="sparkle-container">
-                <rect class="sparkle-path" x="2" y="2" width="98%" height="96%" rx="35" ry="35" />
-                <circle class="sparkle-dot" r="3" />
-            </svg>
-        </div>
+        <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
+        
+        <a href="https://t.me/SWiWT_Teams" class="lens-button btn-bottom">Связаться / Заказать</a>
     </div>
 
-    <script>
-        // 1. Дышащий фон
-        const canvas = document.getElementById('breathe-canvas');
-        const ctx = canvas.getContext('2d');
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize); resize();
-
-        let time = 0;
-        function draw() {
-            ctx.fillStyle = '#000'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            time += 0.005;
-            const points = [{x:0.3, y:0.3, c:'#1a1a1a'}, {x:0.7, y:0.7, c:'#0d0d0d'}];
-            points.forEach(p => {
-                const x = (p.x + Math.sin(time)*0.1) * canvas.width;
-                const y = (p.y + Math.cos(time)*0.1) * canvas.height;
-                const g = ctx.createRadialGradient(x, y, 0, x, y, canvas.width*0.6);
-                g.addColorStop(0, p.c); g.addColorStop(1, 'transparent');
-                ctx.fillStyle = g; ctx.fillRect(0,0,canvas.width,canvas.height);
-            });
-            requestAnimationFrame(draw);
-        }
-        draw();
-
-        // 2. Логика искорки
-        const dots = document.querySelectorAll('.sparkle-dot');
-        const paths = document.querySelectorAll('.sparkle-path');
-        let currentIdx = 0;
-        let progress = 0;
-        const duration = 3000; // 3 секунды на один круг (сделай больше, если надо еще медленнее)
-        let lastTime = 0;
-
-        function animateSparkle(timestamp) {
-            if (!lastTime) lastTime = timestamp;
-            const delta = timestamp - lastTime;
-            lastTime = timestamp;
-
-            // Скрываем все, кроме активной
-            dots.forEach((dot, i) => {
-                dot.style.opacity = (i === currentIdx) ? '1' : '0';
-            });
-
-            const path = paths[currentIdx];
-            const length = path.getTotalLength();
-            
-            progress += delta / duration;
-
-            if (progress >= 1) {
-                progress = 0;
-                currentIdx = (currentIdx + 1) % dots.length;
-            }
-
-            const point = path.getPointAtLength(progress * length);
-            const dot = dots[currentIdx];
-            
-            // Получаем размеры контейнера для корректного позиционирования в %
-            const rect = path.getBoundingClientRect();
-            dot.setAttribute('cx', (point.x / rect.width) * 100 + '%');
-            dot.setAttribute('cy', (point.y / rect.height) * 100 + '%');
-
-            requestAnimationFrame(animateSparkle);
-        }
-        requestAnimationFrame(animateSparkle);
-    </script>
 </body>
 </html>
