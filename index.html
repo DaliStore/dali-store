@@ -2,116 +2,131 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    
-    <title>DaLi STORE — PREMIUM LOOK</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DaLi STORE</title>
     <style>
-        @keyframes pulseBg {
-            0% { transform: translate(0,0) scale(1); opacity: 0.3; }
-            100% { transform: translate(30px, 30px) scale(1.2); opacity: 0.6; }
-        }
-
+        /* Общие стили фона */
         body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #050505; /* Глубокий черный */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #0a0a0a !important; /* Глубокий черный */
-            margin: 0; padding: 20px;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            min-height: 100vh; text-align: center;
-            overflow: hidden; position: relative;
             color: #ffffff;
         }
 
-        /* Золотые пятна фона */
-        .bg-magic-spot {
-            position: absolute; border-radius: 50%;
-            filter: blur(80px); -webkit-filter: blur(80px);
-            z-index: -1;
-            animation: pulseBg 10s infinite alternate ease-in-out;
+        .wrapper {
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
         }
 
-        .avatar-box {
-            width: 140px; height: 140px; border-radius: 50%;
-            margin-bottom: 25px; 
-            border: 2px solid #d4af37; /* Золотая нить */
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-            overflow: hidden; 
-            background: #000;
+        /* Аватарка с золотым свечением */
+        .profile-container {
             position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 25px;
         }
 
-        .img-fix {
-            width: 100%; height: 100%; object-fit: cover;
-            /* Убрал сильный зум, чтобы лого было видно целиком */
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            /* Обязательно замени 'URL_КАРТИНКИ' на реальную прямую ссылку */
+            background-image: url('https://i.ibb.co/Xf8N4mS/dali-photo.jpg'); 
+            background-size: cover;
+            background-position: center;
         }
 
-        h1 { font-size: 32px; font-weight: 900; color: #ffffff; margin-bottom: 10px; letter-spacing: -0.5px; }
-        p { font-size: 15px; color: #a1a1a1; max-width: 300px; margin-bottom: 40px; line-height: 1.5; }
-
-        .stack { width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 16px; }
-
-        /* Золотая кнопка "Power" */
-        .gold-power-btn {
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px; border-radius: 18px;
-            font-size: 17px; font-weight: 800; text-decoration: none;
-            background: linear-gradient(135deg, #d4af37, #b8860b);
-            color: #000; border: none;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-            transition: transform 0.2s ease;
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 800;
         }
 
-        /* Стеклянная кнопка "Dark" */
-        .dark-glass-element {
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px; border-radius: 18px;
-            font-size: 17px; font-weight: 700; text-decoration: none;
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(212, 175, 55, 0.3) !important;
-            color: #d4af37 !important;
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        .description {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #aaaaaa;
+            margin-bottom: 30px;
+            padding: 0 10px;
         }
 
-        .gold-power-btn:active, .dark-glass-element:active {
-            transform: scale(0.97);
+        .join-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #d4af37;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
-        .links-title {
-            font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
-            color: #d4af37; margin-bottom: 10px; opacity: 0.8;
+        /* Единый блок стеклянных кнопок */
+        .glass-menu {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
+
+        .menu-item {
+            display: block;
+            padding: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Убираем нижнюю линию у последней кнопки */
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Эффект при нажатии/наведении */
+        .menu-item:active {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        /* Золотой акцент для первой кнопки */
+        .primary {
+            color: #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+        }
+
     </style>
 </head>
 <body>
-    <div class="bg-magic-spot" style="width:350px; height:350px; background:rgba(212, 175, 55, 0.1); top:-150px; left:-100px;"></div>
-    <div class="bg-magic-spot" style="width:300px; height:300px; background:rgba(184, 134, 11, 0.08); bottom:-100px; right:-50px; animation-delay:-5s;"></div>
 
-    <div class="avatar-box">
-        <img src="https://i.ibb.co/3ykG6vXj/image.png" class="img-fix">
+    <div class="wrapper">
+        <div class="profile-container">
+            <div class="avatar"></div>
+        </div>
+
+        <h1>DaLi STORE 💿</h1>
+        
+        <p class="description">
+            Вещи, которые создают твой вайб. Твой стиль — твои правила. Начни путь к статусу 🕊️
+        </p>
+
+        <div class="join-label">Присоединяйся</div>
+
+        <div class="glass-menu">
+            <a href="#" class="menu-item primary">Вступить в комьюнити</a>
+            <a href="#" class="menu-item">Связаться / Заказать</a>
+        </div>
     </div>
 
-    <h1>DaLi STORE 📀</h1>
-    <p>Вещи, которые создают твой вайб. Твой стиль — твои правила. Начни путь к статусу 🕊️</p>
-
-    <div class="links-title">ПРИСОЕДИНЯЙСЯ</div>
-    <div class="stack">
-        <a href="https://t.me/DaLi_STORE_TG" class="gold-power-btn">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="dark-glass-element">Связаться / Заказать</a>
-        <a href="https://t.me/danreads1" class="dark-glass-element">Книги / Мой путь</a>
-    </div>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.backgroundColor = '#0a0a0a';
-        tg.headerColor = '#0a0a0a';
-    </script>
 </body>
 </html>
