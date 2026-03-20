@@ -5,24 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DaLi STORE</title>
     <style>
-        /* Обнуление */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
             color: #fff;
-            
-            /* ЖИВОЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН */
-            background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #050505, #111);
+            /* Живой темный фон */
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #0d0d0d);
             background-size: 400% 400%;
-            animation: gradient-bg 20s ease infinite;
+            animation: gradient-bg 15s ease infinite;
         }
 
         @keyframes gradient-bg {
@@ -36,7 +33,6 @@
             max-width: 360px;
             padding: 20px;
             text-align: center;
-            z-index: 10;
         }
 
         /* АВАТАРКА */
@@ -49,94 +45,66 @@
             background-image: url('https://i.ibb.co/xSHNsYfS/image.png'); 
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); /* Золотое свечение */
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
 
-        h1 { font-size: 28px; margin: 10px 0; font-weight: 800; letter-spacing: 1px; }
+        h1 { font-size: 28px; margin: 10px 0; font-weight: 800; }
+        .description { font-size: 15px; color: #ccc; margin-bottom: 30px; line-height: 1.4; }
+        .label { font-size: 11px; color: #d4af37; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
 
-        .description {
-            font-size: 15px;
-            color: #ccc;
-            line-height: 1.5;
-            margin-bottom: 35px;
-            padding: 0 10px;
-        }
-
-        .join-label {
-            font-size: 11px;
-            color: #d4af37;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        /* ЕДИНЫЙ СТЕКЛЯННЫЙ БЛОК: ОБЪЕМНАЯ ЛИНЗА */
-        .glass-box {
-            position: relative;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            
-            /* СЛОЖНЫЕ ТЕНИ ДЛЯ ОБЪЕМА И СИНЕГО СВЕЧЕНИЯ */
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.6), /* Основная тень */
-                0 0 25px rgba(0, 102, 255, 0.3), /* Внешний синий нимб */
-                inset 0 10px 15px rgba(255, 255, 255, 0.2), /* Верхний блик внутри */
-                inset 0 -5px 10px rgba(0, 102, 255, 0.2); /* Нижний синий отсвет внутри */
-            
-            transition: transform 0.2s, box-shadow 0.3s;
-        }
-
-        .glass-box:hover {
-            box-shadow: 
-                0 15px 45px rgba(0, 0, 0, 0.8),
-                0 0 35px rgba(0, 102, 255, 0.5), /* Синее свечение становится ярче */
-                inset 0 12px 18px rgba(255, 255, 255, 0.25),
-                inset 0 -7px 12px rgba(0, 102, 255, 0.3);
-        }
-
-        /* Элемент блика для натуральности */
-        .glass-box::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            height: 40%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-            border-radius: 24px 24px 10px 10px;
-            pointer-events: none;
-        }
-
-        /* КНОПКИ */
-        .btn {
-            padding: 24px;
-            color: #fff;
+        /* СТИЛЬ КНОПКИ-ЛИНЗЫ */
+        .lens-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px; /* Разделил их */
+            padding: 22px;
             text-decoration: none;
+            color: #fff;
             font-weight: 600;
             font-size: 17px;
-            transition: background 0.3s;
-            display: block;
+            border-radius: 20px;
             position: relative;
-            z-index: 2; /* Поверх блика */
+            transition: all 0.3s ease;
+            
+            /* Стеклянный эффект */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            /* ЭФФЕКТ ОБЪЕМНОЙ ЛИНЗЫ И СИНЕГО СВЕЧЕНИЯ */
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.5), /* Тень снизу */
+                0 0 15px rgba(0, 102, 255, 0.2), /* Мягкое синее свечение */
+                inset 0 8px 12px rgba(255, 255, 255, 0.15), /* Блик сверху для объема */
+                inset 0 -4px 10px rgba(0, 102, 255, 0.2); /* Синий отблеск снизу внутри */
         }
 
-        /* Разделитель между кнопками */
-        .btn-top {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            color: #d4af37; /* Выделяем золотом первую кнопку */
+        /* Золотой текст для первой кнопки */
+        .gold-glow { color: #d4af37; }
+
+        /* Эффект при наведении/нажатии */
+        .lens-button:active {
+            transform: scale(0.96);
+            box-shadow: 
+                0 5px 10px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(0, 102, 255, 0.5), /* Усиление синего при клике */
+                inset 0 4px 8px rgba(255, 255, 255, 0.1);
+            background: rgba(0, 102, 255, 0.1);
         }
 
-        .btn:active {
-            background: rgba(0, 102, 255, 0.15); /* Синий оттенок при клике */
-            transform: scale(0.98);
+        /* Дополнительный верхний блик (линза) */
+        .lens-button::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 10%;
+            right: 10%;
+            height: 30%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent);
+            border-radius: 10px;
+            pointer-events: none;
         }
-
     </style>
 </head>
 <body>
@@ -150,12 +118,11 @@
             Эстетика, формирующая характер. Твой стиль — твоя власть. Начни восхождение к вершине 🕊️
         </p>
 
-        <div class="join-label">Присоединяйся</div>
+        <div class="label">Присоединяйся</div>
 
-        <div class="glass-box">
-            <a href="https://t.me/DaLi_STORE_TG" class="btn btn-top">Вступить в комьюнити</a>
-            <a href="https://t.me/SWiWT_Teams" class="btn">Связаться / Заказать</a>
-        </div>
+        <a href="https://t.me/DaLi_STORE_TG" class="lens-button gold-glow">Вступить в комьюнити</a>
+        
+        <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
     </div>
 
 </body>
