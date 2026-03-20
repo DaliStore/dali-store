@@ -14,24 +14,26 @@
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; color: #fff; overflow: hidden;
             font-family: 'Montserrat', sans-serif;
+            /* Дышащий фон без Canvas (так надежнее) */
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+            animation: breathe-bg 8s ease-in-out infinite;
         }
 
-        /* Дышащий фон */
-        #bg-canvas {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; filter: blur(30px); opacity: 0.6;
+        @keyframes breathe-bg {
+            0%, 100% { background-size: 100% 100%; }
+            50% { background-size: 140% 140%; }
         }
 
         .container {
             width: 100%; max-width: 400px; text-align: center;
-            z-index: 10; transform: scale(0.85); /* Отдаление */
+            z-index: 10; transform: scale(0.9);
         }
 
         .avatar {
             width: 130px; height: 130px; border-radius: 50%;
             border: 2px solid #d4af37; margin: 0 auto 20px;
             background: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg') center/cover;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
         }
 
         h1 { 
@@ -43,107 +45,77 @@
 
         .button-wrapper {
             position: relative; margin-bottom: 25px;
-            display: flex; justify-content: center; align-items: center;
+            border-radius: 50px; padding: 2px; /* Место для искорки */
+            overflow: hidden;
+        }
+
+        /* Сама искорка (вращающийся градиент) */
+        .sparkle {
+            position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, #fff);
+            animation: rotate-sparkle 4s linear infinite;
+            opacity: 0; transition: opacity 0.5s;
+        }
+
+        @keyframes rotate-sparkle {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .lens-button {
-            width: 100%; padding: 22px;
+            display: block; width: 100%; padding: 22px;
             text-decoration: none; color: #fff; font-weight: 600;
-            border-radius: 50px; background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px; background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: relative; z-index: 5;
+            /* Объем линзы */
+            box-shadow: inset 0 8px 15px rgba(255, 255, 255, 0.1), 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 10px 20px rgba(255,255,255,0.1), 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 5; position: relative;
         }
 
-        /* Контур для искорки */
-        .sparkle-svg {
-            position: absolute; top: -2px; left: -2px;
-            width: calc(100% + 4px); height: calc(100% + 4px);
-            fill: none; pointer-events: none; z-index: 6;
-        }
+        /* Классы для JS очереди */
+        .active .sparkle { opacity: 1; }
 
-        .sparkle-path {
-            stroke: #fff; stroke-width: 3; stroke-linecap: round;
-            stroke-dasharray: 40, 1000; /* Длина искорки */
-            stroke-dashoffset: 1000;
-            filter: drop-shadow(0 0 5px #fff);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        /* Класс активации для JS */
-        .active-sparkle .sparkle-path {
-            opacity: 1;
-            animation: run-sparkle 3s linear forwards;
-        }
-
-        @keyframes run-sparkle {
-            from { stroke-dashoffset: 1000; }
-            to { stroke-dashoffset: 0; }
-        }
     </style>
 </head>
 <body>
-
-    <canvas id="bg-canvas"></canvas>
 
     <div class="container">
         <div class="avatar"></div>
         <h1>DaLi STORE 🛍️</h1>
         <p style="opacity:0.7; font-size:14px; margin-bottom:40px;">Эстетика, формирующая характер.</p>
 
-        <div class="button-wrapper" id="wrap1">
+        <div class="button-wrapper" id="btn1">
+            <div class="sparkle"></div>
             <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
-            <svg class="sparkle-svg"><rect class="sparkle-path" x="2" y="2" width="98.5%" height="95%" rx="33" /></svg>
         </div>
 
-        <div class="button-wrapper" id="wrap2">
+        <div class="button-wrapper" id="btn2">
+            <div class="sparkle"></div>
             <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
-            <svg class="sparkle-svg"><rect class="sparkle-path" x="2" y="2" width="98.5%" height="95%" rx="33" /></svg>
         </div>
     </div>
 
     <script>
-        // 1. Дышащий фон
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        function res() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.onresize = res; res();
-        let t = 0;
-        function draw() {
-            ctx.fillStyle = '#000'; ctx.fillRect(0,0,canvas.width,canvas.height);
-            t += 0.01;
-            for(let i=0; i<2; i++) {
-                let x = canvas.width*(0.5 + Math.sin(t+i)*0.2);
-                let y = canvas.height*(0.5 + Math.cos(t+i)*0.2);
-                let g = ctx.createRadialGradient(x,y,0,x,y,400);
-                g.addColorStop(0, '#1a1a1a'); g.addColorStop(1, 'transparent');
-                ctx.fillStyle = g; ctx.fillRect(0,0,canvas.width,canvas.height);
-            }
-            requestAnimationFrame(draw);
-        }
-        draw();
+        const b1 = document.getElementById('btn1');
+        const b2 = document.getElementById('btn2');
 
-        // 2. Очередь искорок
-        const w1 = document.getElementById('wrap1');
-        const w2 = document.getElementById('wrap2');
-        
-        function startCycle() {
-            // Первая кнопка
-            w1.classList.add('active-sparkle');
+        function runCycle() {
+            // Включаем на первой
+            b1.classList.add('active');
             setTimeout(() => {
-                w1.classList.remove('active-sparkle');
-                // Вторая кнопка
-                w2.classList.add('active-sparkle');
+                b1.classList.remove('active');
+                // Включаем на второй
+                b2.classList.add('active');
                 setTimeout(() => {
-                    w2.classList.remove('active-sparkle');
-                    // Перерыв перед следующим циклом
-                    setTimeout(startCycle, 500);
-                }, 3000); // Длительность анимации
-            }, 3000);
+                    b2.classList.remove('active');
+                    // Пауза перед кругом
+                    setTimeout(runCycle, 1000);
+                }, 4000); // Время круга
+            }, 4000);
         }
-        startCycle();
+        runCycle();
     </script>
 </body>
 </html>
