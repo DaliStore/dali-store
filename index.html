@@ -13,26 +13,10 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* УЛЬТРА-СТАБИЛЬНАЯ АНИМАЦИЯ */
+        /* ЕДИНАЯ ПЛАВНАЯ АНИМАЦИЯ */
         @keyframes stableReveal {
-            from { 
-                opacity: 0; 
-                transform: translateY(10px);
-                visibility: visible;
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-                visibility: visible;
-            }
-        }
-
-        /* Общий класс для всех, кто должен плавно появиться */
-        .reveal {
-            opacity: 0;
-            visibility: hidden; /* Скрываем до начала анимации */
-            will-change: transform, opacity;
-            animation: stableReveal 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         body {
@@ -61,8 +45,16 @@
             z-index: 10;
         }
 
-        /* --- ЧЁТКАЯ ОЧЕРЕДЬ (ДОМИНО) --- */
+        /* БАЗОВЫЙ СТИЛЬ ДЛЯ ВСЕХ ЭЛЕМЕНТОВ (ИЗНАЧАЛЬНО СКРЫТЫ) */
+        .avatar, h1, .description, .label, .lens-button {
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: stableReveal 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
 
+        /* --- ЖЕСТКАЯ ОЧЕРЕДЬ (ДОМИНО) --- */
+
+        /* 1. АВАТАРКА (Стартует мгновенно) */
         .avatar {
             width: 130px; 
             height: 130px;
@@ -73,10 +65,10 @@
             background-size: cover;
             background-position: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* Аватарка стартует ПЕРВОЙ почти без задержки */
             animation-delay: 0.1s; 
         }
 
+        /* 2. НАЗВАНИЕ (Ждет, пока аватарка проявится) */
         h1 { 
             font-family: 'Playfair Display', serif; 
             font-size: 34px; 
@@ -85,29 +77,29 @@
             background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* Вторая пошла */
-            animation-delay: 0.5s; 
+            animation-delay: 0.7s; /* Увеличил разрыв */
         }
 
+        /* 3. ОПИСАНИЕ */
         .description { 
             font-size: 14px; 
             color: #ccc; 
             margin-bottom: 55px;
             line-height: 1.8;
-            /* Третья */
-            animation-delay: 0.9s; 
+            animation-delay: 1.1s; 
         }
 
+        /* 4. ЛЕЙБЛ */
         .label { 
             font-size: 10px; 
             color: #ffdf85; 
             text-transform: uppercase; 
             letter-spacing: 4px; 
             margin-bottom: 30px; 
-            /* Четвертая */
-            animation-delay: 1.3s; 
+            animation-delay: 1.5s; 
         }
 
+        /* 5. КНОПКИ */
         .lens-button {
             display: block;
             width: 100%;
@@ -124,9 +116,8 @@
             transition: transform 0.3s ease;
         }
 
-        /* Кнопки зафиналивают */
-        .btn-1 { animation-delay: 1.7s; }
-        .btn-2 { animation-delay: 2.1s; }
+        .btn-1 { animation-delay: 1.9s; }
+        .btn-2 { animation-delay: 2.3s; }
 
         .lens-button:active { transform: scale(0.97); }
     </style>
@@ -134,17 +125,14 @@
 <body>
 
     <div class="container">
-        <div class="avatar reveal"></div>
-        
-        <h1 class="reveal">DaLi STORE 🛍️</h1>
-        
-        <p class="description reveal">
+        <div class="avatar"></div>
+        <h1>DaLi STORE 🛍️</h1>
+        <p class="description">
             Эстетика, формирующая характер.<br>Твой стиль — твоя власть.<br>Начни восхождение к вершине 🕊️
         </p>
-        
-        <div class="label reveal">Присоединяйся</div>
-        <a href="https://t.me/DaLi_STORE_TG" class="lens-button reveal btn-1">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="lens-button reveal btn-2">Связаться / Заказать</a>
+        <div class="label">Присоединяйся</div>
+        <a href="https://t.me/DaLi_STORE_TG" class="lens-button btn-1">Вступить в комьюнити</a>
+        <a href="https://t.me/SWiWT_Teams" class="lens-button btn-2">Связаться / Заказать</a>
     </div>
 
 </body>
