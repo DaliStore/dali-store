@@ -14,7 +14,7 @@
         @keyframes ultraSmooth {
             0% { 
                 opacity: 0; 
-                transform: translateY(10px); 
+                transform: translateY(15px); 
             }
             100% { 
                 opacity: 1; 
@@ -22,11 +22,11 @@
             }
         }
 
+        /* Базовый класс для всех анимированных элементов */
         .reveal {
             opacity: 0;
-            /* Используем hardware acceleration */
             will-change: transform, opacity;
-            animation: ultraSmooth 1.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+            animation: ultraSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         body {
@@ -55,17 +55,19 @@
             z-index: 10;
         }
 
+        /* ПОРЯДОК ПОЯВЛЕНИЯ (ЖЕСТКИЙ ТАЙМИНГ) */
+        
         .avatar {
             width: 130px; 
             height: 130px;
             border-radius: 50%;
             border: 2px solid #d4af37;
-            margin: 0 auto 40px; /* Еще чуть больше воздуха */
+            margin: 0 auto 40px;
             background-image: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg'); 
             background-size: cover;
             background-position: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation-delay: 0.2s;
+            animation-delay: 0.1s; /* 1-й */
         }
 
         h1 { 
@@ -76,16 +78,16 @@
             background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation-delay: 0.4s;
+            animation-delay: 0.4s; /* 2-й */
         }
 
         .description { 
             font-size: 14px; 
             color: #ccc; 
-            margin-bottom: 55px; /* Максимальный воздух */
+            margin-bottom: 55px;
             line-height: 1.8;
             opacity: 0.8;
-            animation-delay: 0.6s;
+            animation-delay: 0.7s; /* 3-й (теперь точно после заголовка) */
         }
 
         .label { 
@@ -94,7 +96,7 @@
             text-transform: uppercase; 
             letter-spacing: 4px; 
             margin-bottom: 30px; 
-            animation-delay: 0.8s;
+            animation-delay: 1.0s; /* 4-й */
         }
 
         .lens-button {
@@ -110,11 +112,11 @@
             backdrop-filter: blur(10px); 
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .btn-1 { animation-delay: 1s; }
-        .btn-2 { animation-delay: 1.2s; }
+        .btn-1 { animation-delay: 1.3s; } /* 5-й */
+        .btn-2 { animation-delay: 1.6s; } /* 6-й */
 
         .lens-button:active {
             transform: scale(0.97);
