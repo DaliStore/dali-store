@@ -21,12 +21,18 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: scale(0.85) translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
-                transform: scale(0.9) translateY(0);
+                transform: translateY(0);
             }
+        }
+
+        /* Базовый класс для анимации */
+        .reveal {
+            opacity: 0; /* Изначально скрыты */
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
         body {
@@ -62,25 +68,17 @@
             pointer-events: none;
         }
 
-        @-webkit-keyframes move-glow {
-            0% { -webkit-transform: translate(0, 0); transform: translate(0, 0); }
-            100% { -webkit-transform: translate(10%, 10%); transform: translate(10%, 10%); }
-        }
-
         @keyframes move-glow {
             0% { transform: translate(0, 0); }
             100% { transform: translate(10%, 10%); }
         }
 
-        /* КОНТЕЙНЕР С АНИМАЦИЕЙ */
         .container {
             width: 100%;
             max-width: 400px;
             padding: 20px;
             text-align: center;
             z-index: 10;
-            /* Плавный влет при загрузке */
-            animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
         .avatar {
@@ -93,6 +91,8 @@
             background-size: cover;
             background-position: center;
             box-shadow: 0 0 45px rgba(212, 175, 55, 0.4);
+            /* Задержка 1 */
+            animation-delay: 0.2s;
         }
 
         h1 { 
@@ -105,6 +105,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            /* Задержка 2 */
+            animation-delay: 0.4s;
         }
 
         .description { 
@@ -115,6 +117,8 @@
             line-height: 1.6;
             padding: 0 15px;
             opacity: 0.8;
+            /* Задержка 3 */
+            animation-delay: 0.6s;
         }
 
         .label { 
@@ -124,6 +128,8 @@
             letter-spacing: 3px; 
             margin-bottom: 25px; 
             font-weight: 600;
+            /* Задержка 4 */
+            animation-delay: 0.8s;
         }
 
         .lens-button {
@@ -146,6 +152,10 @@
             overflow: hidden;
         }
 
+        /* Задержки для кнопок */
+        .btn-1 { animation-delay: 1s; }
+        .btn-2 { animation-delay: 1.2s; }
+
         .lens-button:hover {
             transform: translateY(-3px); 
             background: rgba(255, 255, 255, 0.12);
@@ -161,18 +171,18 @@
 <body>
 
     <div class="container">
-        <div class="avatar"></div>
+        <div class="avatar reveal"></div>
 
-        <h1>DaLi STORE 🛍️</h1>
+        <h1 class="reveal">DaLi STORE 🛍️</h1>
         
-        <p class="description">
+        <p class="description reveal">
             Эстетика, формирующая характер. Твой стиль — твоя власть. <br> Начни восхождение к вершине 🕊️
         </p>
 
-        <div class="label">Присоединяйся</div>
+        <div class="label reveal">Присоединяйся</div>
 
-        <a href="https://t.me/DaLi_STORE_TG" class="lens-button">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="lens-button">Связаться / Заказать</a>
+        <a href="https://t.me/DaLi_STORE_TG" class="lens-button reveal btn-1">Вступить в комьюнити</a>
+        <a href="https://t.me/SWiWT_Teams" class="lens-button reveal btn-2">Связаться / Заказать</a>
     </div>
 
 </body>
