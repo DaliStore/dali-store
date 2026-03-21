@@ -2,144 +2,91 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     
     <title>DaLi STORE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
     
     <style>
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
-        }
+        /* BASE RESET & PERFORMANCE LOCK */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; -webkit-font-smoothing: antialiased; }
+        html, body { height: 100%; overflow: hidden; margin: 0; padding: 0; background: #050505; }
 
-        @keyframes stableReveal {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes dalliFade {
+            from { opacity: 0; transform: translateY(15px) translateZ(0); }
+            to { opacity: 1; transform: translateY(0) translateZ(0); }
         }
 
         body {
-            margin: 0;
-            padding: 0;
             font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             color: #fff;
-            background-color: #050505;
             background-image: 
                 radial-gradient(circle at 0% 0%, rgba(212, 175, 55, 0.12), transparent 50%),
                 radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.08), transparent 50%),
                 url('https://www.transparenttextures.com/patterns/stardust.png');
             background-attachment: fixed;
-            overflow-x: hidden;
         }
 
-        .container {
-            width: 100%;
-            max-width: 380px;
-            padding: 40px 25px; 
-            text-align: center;
-            z-index: 10;
-        }
+        .container { width: 100%; max-width: 380px; padding: 40px 25px; text-align: center; z-index: 10; }
 
-        /* БАЗОВАЯ АНИМАЦИЯ ПОЯВЛЕНИЯ */
-        .avatar, h1, .description, .label, .lens-button {
-            opacity: 0;
-            will-change: transform, opacity;
-            animation: stableReveal 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-        }
+        /* ANIMATION CORE */
+        .a_load { opacity: 0; will-change: transform, opacity; animation: dalliFade 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-        /* --- ЖЕСТКАЯ ОЧЕРЕДЬ --- */
+        /* ELEMENTS */
         .avatar {
-            width: 130px; 
-            height: 130px;
-            border-radius: 50%;
-            border: 2px solid #d4af37;
-            margin: 0 auto 40px;
-            background-image: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg'); 
-            background-size: cover;
-            background-position: center;
+            width: 130px; height: 130px; border-radius: 50%; border: 2px solid #d4af37;
+            margin: 0 auto 40px; background: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg') center/cover;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation-delay: 0.1s; 
+            animation-delay: 0.1s;
         }
 
         h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 34px; 
-            margin: 0 0 25px 0; 
-            font-weight: 800; 
+            font-family: 'Playfair Display', serif; font-size: 34px; margin: 0 0 25px 0; font-weight: 800; 
             background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation-delay: 0.6s; 
         }
 
-        .description { 
-            font-size: 14px; 
-            color: #ccc; 
-            margin-bottom: 55px;
-            line-height: 1.8;
-            animation-delay: 1.0s; 
-        }
+        .desc { font-size: 14px; color: #ccc; margin-bottom: 55px; line-height: 1.8; opacity: 0.8; animation-delay: 1.0s; }
+        .lbl { font-size: 10px; color: #ffdf85; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; animation-delay: 1.4s; }
 
-        .label { 
-            font-size: 10px; 
-            color: #ffdf85; 
-            text-transform: uppercase; 
-            letter-spacing: 4px; 
-            margin-bottom: 30px; 
-            animation-delay: 1.4s; 
-        }
-
-        /* --- КНОПКИ С ВОЗВРАЩЕННЫМ ЭФФЕКТОМ ПОДСВЕТКИ --- */
-        .lens-button {
-            display: block;
-            width: 100%;
-            margin-bottom: 20px; 
-            padding: 22px;
-            text-decoration: none;
-            color: #fff; 
-            font-weight: 600;
-            border-radius: 50px; 
-            background: rgba(255, 255, 255, 0.07); 
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px);
+        .btn {
+            display: block; width: 100%; margin-bottom: 20px; padding: 22px;
+            text-decoration: none; color: #fff; font-weight: 600; border-radius: 50px; 
+            background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            
-            /* Плавность для ховера */
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .btn-1 { animation-delay: 1.8s; }
-        .btn-2 { animation-delay: 2.2s; }
+        .btn:nth-child(5) { animation-delay: 1.8s; }
+        .btn:nth-child(6) { animation-delay: 2.2s; }
 
-        /* ВОЗВРАЩАЕМ ЖИВОЙ ХОВЕР */
-        .lens-button:hover {
-            transform: translateY(-5px); /* Легкий взлет */
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(212, 175, 55, 0.6); /* Золотое свечение рамки */
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2); /* Тень с оттенком золота */
-            color: #ffdf85; /* Текст чуть золотистее */
+        .btn:hover {
+            transform: translateY(-5px); background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(212, 175, 55, 0.6); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+            color: #ffdf85;
         }
 
-        .lens-button:active { 
-            transform: scale(0.96); 
-        }
+        .btn:active { transform: scale(0.96); }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="avatar"></div>
-        <h1>DaLi STORE 🛍️</h1>
-        <p class="description">
+        <div class="avatar a_load"></div>
+        <h1 class="a_load">DaLi STORE 🛍️</h1>
+        <p class="desc a_load">
             Эстетика, формирующая характер.<br>Твой стиль — твоя власть.<br>Начни восхождение к вершине 🕊️
         </p>
-        <div class="label">Присоединяйся</div>
-        <a href="https://t.me/DaLi_STORE_TG" class="lens-button btn-1">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="lens-button btn-2">Связаться / Заказать</a>
+        <div class="lbl a_load">Присоединяйся</div>
+        <a href="https://t.me/DaLi_STORE_TG" class="btn a_load">Вступить в комьюнити</a>
+        <a href="https://t.me/SWiWT_Teams" class="btn a_load">Связаться / Заказать</a>
     </div>
 
 </body>
