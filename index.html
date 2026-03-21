@@ -4,35 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    
     <title>DaLi STORE</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
     
     <style>
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        /* МЯГКАЯ АНИМАЦИЯ БЕЗ РЫВКОВ */
+        @keyframes smoothReveal {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- АНИМАЦИЯ ПОЯВЛЕНИЯ --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Базовый класс для анимации */
         .reveal {
-            opacity: 0; /* Изначально скрыты */
-            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+            animation: smoothReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         body {
@@ -50,137 +36,94 @@
                 radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.08), transparent 50%),
                 url('https://www.transparenttextures.com/patterns/stardust.png');
             background-attachment: fixed;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
-            position: absolute;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-            top: -30%;
-            left: -30%;
-            -webkit-animation: move-glow 18s infinite alternate ease-in-out;
-            animation: move-glow 18s infinite alternate ease-in-out;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        @keyframes move-glow {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(10%, 10%); }
+            overflow: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 400px;
-            padding: 20px;
+            max-width: 380px;
+            padding: 40px 25px; /* Увеличил отступы внутри */
             text-align: center;
             z-index: 10;
         }
 
         .avatar {
-            width: 140px;
-            height: 140px;
+            width: 130px; /* Чуть уменьшил для баланса */
+            height: 130px;
             border-radius: 50%;
             border: 2px solid #d4af37;
-            margin: 0 auto 25px;
+            margin: 0 auto 35px; /* Увеличил отступ снизу */
             background-image: url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg'); 
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 45px rgba(212, 175, 55, 0.4);
-            /* Задержка 1 */
-            animation-delay: 0.2s;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.3);
+            animation-delay: 0.1s;
         }
 
         h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 38px; 
-            margin: 10px 0; 
+            font-size: 34px; /* Чуть уменьшил */
+            margin: 15px 0 20px; /* Увеличил расстояние */
             font-weight: 800; 
-            letter-spacing: 1.5px;
             background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-            /* Задержка 2 */
-            animation-delay: 0.4s;
+            animation-delay: 0.3s;
         }
 
         .description { 
             font-size: 14px; 
-            font-weight: 300;
             color: #ccc; 
-            margin-bottom: 45px; 
-            line-height: 1.6;
-            padding: 0 15px;
+            margin-bottom: 50px; /* Больше воздуха перед кнопками */
+            line-height: 1.8;
             opacity: 0.8;
-            /* Задержка 3 */
-            animation-delay: 0.6s;
+            animation-delay: 0.5s;
         }
 
         .label { 
-            font-size: 11px; 
+            font-size: 10px; 
             color: #ffdf85; 
             text-transform: uppercase; 
-            letter-spacing: 3px; 
-            margin-bottom: 25px; 
-            font-weight: 600;
-            /* Задержка 4 */
-            animation-delay: 0.8s;
+            letter-spacing: 4px; 
+            margin-bottom: 30px; 
+            animation-delay: 0.7s;
         }
 
         .lens-button {
             display: block;
             width: 100%;
-            margin-bottom: 25px; 
-            padding: 24px 20px;
+            margin-bottom: 20px; 
+            padding: 22px;
             text-decoration: none;
             color: #fff; 
             font-weight: 600;
-            font-size: 17px;
             border-radius: 50px; 
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(255, 255, 255, 0.08); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 10px 20px rgba(255, 255, 255, 0.05); 
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.07); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
         }
 
-        /* Задержки для кнопок */
-        .btn-1 { animation-delay: 1s; }
-        .btn-2 { animation-delay: 1.2s; }
+        .btn-1 { animation-delay: 0.9s; }
+        .btn-2 { animation-delay: 1.1s; }
 
         .lens-button:hover {
             transform: translateY(-3px); 
             background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
         }
-
-        .lens-button:active {
-            transform: scale(0.96);
-        }
-
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="avatar reveal"></div>
-
-        <h1 class="reveal">DaLi STORE 🛍️</h1>
-        
+        <h1 class="reveal">DaLi STORE</h1>
         <p class="description reveal">
-            Эстетика, формирующая характер. Твой стиль — твоя власть. <br> Начни восхождение к вершине 🕊️
+            Эстетика, формирующая характер.<br>Твой стиль — твоя власть.
         </p>
-
         <div class="label reveal">Присоединяйся</div>
-
         <a href="https://t.me/DaLi_STORE_TG" class="lens-button reveal btn-1">Вступить в комьюнити</a>
         <a href="https://t.me/SWiWT_Teams" class="lens-button reveal btn-2">Связаться / Заказать</a>
     </div>
