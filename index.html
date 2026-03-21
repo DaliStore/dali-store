@@ -10,19 +10,12 @@
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        /* ЭКСТРЕМАЛЬНО ПЛАВНАЯ АНИМАЦИЯ */
         @keyframes ultraSmooth {
-            0% { 
-                opacity: 0; 
-                transform: translateY(15px); 
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Базовый класс для всех анимированных элементов */
+        /* Общий стиль для всех анимированных элементов */
         .reveal {
             opacity: 0;
             will-change: transform, opacity;
@@ -55,8 +48,7 @@
             z-index: 10;
         }
 
-        /* ПОРЯДОК ПОЯВЛЕНИЯ (ЖЕСТКИЙ ТАЙМИНГ) */
-        
+        /* 1. АВАТАР */
         .avatar {
             width: 130px; 
             height: 130px;
@@ -67,9 +59,10 @@
             background-size: cover;
             background-position: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation-delay: 0.1s; /* 1-й */
+            animation-delay: 0.1s;
         }
 
+        /* 2. ЗАГОЛОВОК */
         h1 { 
             font-family: 'Playfair Display', serif; 
             font-size: 34px; 
@@ -78,27 +71,31 @@
             background: linear-gradient(135deg, #d4af37 0%, #ffdf85 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation-delay: 0.4s; /* 2-й */
+            animation-delay: 0.5s; /* Даем больше времени */
         }
 
+        /* 3. ОПИСАНИЕ (ВЫДЕЛЕНО ОТДЕЛЬНО ДЛЯ ПЛАВНОСТИ) */
         .description { 
             font-size: 14px; 
             color: #ccc; 
             margin-bottom: 55px;
             line-height: 1.8;
-            opacity: 0.8;
-            animation-delay: 0.7s; /* 3-й (теперь точно после заголовка) */
+            opacity: 0; /* Важно: изначально 0 */
+            animation: ultraSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.9s; /* ЖЕСТКАЯ ЗАДЕРЖКА ПОСЛЕ h1 */
         }
 
+        /* 4. ЛЕЙБЛ */
         .label { 
             font-size: 10px; 
             color: #ffdf85; 
             text-transform: uppercase; 
             letter-spacing: 4px; 
             margin-bottom: 30px; 
-            animation-delay: 1.0s; /* 4-й */
+            animation-delay: 1.2s;
         }
 
+        /* 5. КНОПКИ */
         .lens-button {
             display: block;
             width: 100%;
@@ -115,12 +112,10 @@
             transition: transform 0.3s ease;
         }
 
-        .btn-1 { animation-delay: 1.3s; } /* 5-й */
-        .btn-2 { animation-delay: 1.6s; } /* 6-й */
+        .btn-1 { animation-delay: 1.5s; }
+        .btn-2 { animation-delay: 1.8s; }
 
-        .lens-button:active {
-            transform: scale(0.97);
-        }
+        .lens-button:active { transform: scale(0.97); }
     </style>
 </head>
 <body>
@@ -130,7 +125,7 @@
         
         <h1 class="reveal">DaLi STORE 🛍️</h1>
         
-        <p class="description reveal">
+        <p class="description">
             Эстетика, формирующая характер.<br>Твой стиль — твоя власть.<br>Начни восхождение к вершине 🕊️
         </p>
         
