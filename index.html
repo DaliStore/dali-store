@@ -17,18 +17,22 @@
             margin:0;padding:0;
             font-family:'Montserrat',sans-serif;
             display:flex;justify-content:center;align-items:center;
-            min-height:100vh;color:#fff;
+            /* Динамическая высота для корректного отображения в мобильных браузерах */
+            min-height: 100dvh; 
+            color:#fff;
             background-color:#050505;
             background-image:radial-gradient(circle at 0% 0%,rgba(212,175,55,0.12),transparent 50%),
                              radial-gradient(circle at 100% 100%,rgba(212,175,55,0.08),transparent 50%),
                              url('https://www.transparenttextures.com/patterns/stardust.png');
             background-attachment:fixed;
-            overflow:hidden;
+            overflow-y: auto; /* Разрешаем скролл, если экран очень маленький */
         }
 
         .container{
             width:100%;max-width:380px;
-            padding:40px 25px;text-align:center;z-index:10;
+            /* Оптимизированные отступы для мобилок */
+            padding: 20px 25px; 
+            text-align:center;z-index:10;
         }
 
         .avatar, h1, .description, .label, .lens-button{
@@ -37,9 +41,9 @@
         }
 
         .avatar{
-            width:130px;height:130px;
+            width:110px;height:110px; /* Оптимальный размер аватара */
             border-radius:50%;border:2px solid #d4af37;
-            margin:0 auto 40px;
+            margin:0 auto 20px;
             background-image:url('https://i.ibb.co/fdTY6TFb/copy-6-DE92-EDF-28-FF-49-A9-9225-923-B8-A7-B1-BC6.jpg');
             background-size:cover;background-position:center;
             box-shadow:0 10px 30px rgba(0,0,0,0.5);
@@ -48,27 +52,29 @@
 
         h1{
             font-family:'Playfair Display',serif;
-            font-size:34px;margin:0 0 25px 0;font-weight:800;
+            font-size:28px; /* Четкий заголовок без перекрытия */
+            margin:0 0 15px 0;font-weight:800;
             background:linear-gradient(135deg,#d4af37 0%,#ffdf85 50%,#d4af37 100%);
             -webkit-background-clip:text;-webkit-text-fill-color:transparent;
             animation-delay:0.6s;
         }
 
         .description{
-            font-size:14px;color:#ccc;
-            margin-bottom:55px;line-height:1.8;
+            font-size:13px;color:#ccc;
+            margin-bottom:30px; /* Уплотненное пространство */
+            line-height:1.6;
             animation-delay:1s;
         }
 
         .label{
             font-size:10px;color:#ffdf85;
             text-transform:uppercase;letter-spacing:4px;
-            margin-bottom:30px;animation-delay:1.4s;
+            margin-bottom:20px;animation-delay:1.4s;
         }
 
         .lens-button{
             display:block;width:100%;
-            margin-bottom:20px;padding:22px;
+            margin-bottom:12px;padding:18px;
             text-decoration:none;color:#fff;
             font-weight:600;border-radius:50px;
             background:rgba(255,255,255,0.07);
@@ -77,20 +83,19 @@
             transition:all .4s cubic-bezier(.175,.885,.32,1.275);
         }
 
-        /* Каскадное появление кнопок */
+        /* Тайминги появления */
         .btn-0{animation-delay:1.8s}
         .btn-1{animation-delay:2.1s}
         .btn-2{animation-delay:2.4s}
 
         .lens-button:hover{
-            transform:translateY(-5px);
+            transform:translateY(-3px);
             background:rgba(255,255,255,0.12);
             border-color:rgba(212,175,55,0.6);
-            box-shadow:0 10px 25px rgba(212,175,55,0.2);
             color:#ffdf85;
+            box-shadow:0 10px 25px rgba(212,175,55,0.2);
         }
-
-        .lens-button:active{transform:scale(.96)}
+        .lens-button:active{transform:scale(.98)}
     </style>
 </head>
 <body>
@@ -106,10 +111,9 @@
         
         <div class="label">Присоединяйся</div>
         
-        <a href="https://www.avito.ru/brands/644bd4029adac944b877731ad14b4967?src=sharing" target="_blank" class="lens-button btn-0">Авито🛍️</a>
-        
-        <a href="https://t.me/DaLi_STORE_TG" class="lens-button btn-1">Вступить в комьюнити</a>
-        <a href="https://t.me/SWiWT_Teams" class="lens-button btn-2">Связаться / Заказать</a>
+        <a href="https://www.avito.ru/brands/644bd4029adac944b877731ad14b4967?src=sharing" target="_blank" class="lens-button btn-0">Магазин на Авито 🛒</a>
+        <a href="https://t.me/DaLi_STORE_TG" target="_blank" class="lens-button btn-1">Вступить в комьюнити</a>
+        <a href="https://t.me/SWiWT_Teams" target="_blank" class="lens-button btn-2">Связаться / Заказать</a>
     </div>
 
     <script>
